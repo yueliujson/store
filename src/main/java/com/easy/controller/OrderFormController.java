@@ -1,12 +1,15 @@
 package com.easy.controller;
 
 import com.easy.bean.OrderForm;
+import com.easy.bean.User;
 import com.easy.service.OrderFormServiceDao;
 import com.easy.utils.ResultData;
+import com.easy.utils.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class OrderFormController {
@@ -24,4 +27,47 @@ public class OrderFormController {
         }
         return rd;
     }
+
+    @GetMapping("/orderForm/{id}")
+    public ResultData get(@PathVariable int id) {
+        OrderForm orderForm = orderFormServiceDao.get(id);
+        ResultData rd = new ResultData(200, "success");
+        rd.put("data", orderForm);
+        return rd;
+    }
+
+    @GetMapping("/orderForm")
+    public ResultData list(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute(Sys.LOGIN_NAME);
+        Integer user_id = user.getUser_id();
+        List<OrderForm> list = orderFormServiceDao.list(user_id);
+        ResultData rd = new ResultData(200, "success");
+        rd.put("data",list);
+        return rd;
+    }
+    @PutMapping("/orderForm")
+    public ResultData edit(@RequestBody OrderForm orderForm){
+        int edit=orderFormServiceDao.edit(orderForm);
+        ResultData rd;
+        if (edit > 0) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        return rd;
+    }
+
+    @DeleteMapping("/orderForm/{id}")
+    public ResultData delete(@PathVariable int id){
+        int delete=orderFormServiceDao.delete(id);
+        ResultData rd;
+        if (delete > 0) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        return rd;
+    }
+
+
 }
