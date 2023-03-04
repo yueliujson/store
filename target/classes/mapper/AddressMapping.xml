@@ -13,6 +13,19 @@
         set isdel=1
         where id = #{id}
     </update>
+    <update id="edit">
+        update address
+        set province=#{province},
+            city=#{city},
+            area=#{area},
+            address=#{address},
+            phone=#{phone},
+            receiver=#{receiver},
+            state=#{state},
+            isdel=#{isDel},
+            lastedittime=now()
+        where id = #{id}
+    </update>
 
     <select id="get" resultType="com.easy.bean.Address">
         select id,
