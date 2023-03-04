@@ -20,13 +20,13 @@ public class AddressController {
      * 储存地址
      */
     @PostMapping("/address")
-    public ResultData save(@RequestBody Address address){
-        int save=addressServiceDao.save(address);
+    public ResultData save(@RequestBody Address address) {
+        int save = addressServiceDao.save(address);
         ResultData rd;
-        if (save>0) {
+        if (save > 0) {
             rd = new ResultData(200, "success");
-        }else {
-            rd=new ResultData(202,"fail");
+        } else {
+            rd = new ResultData(202, "fail");
         }
         return rd;
     }
@@ -35,10 +35,10 @@ public class AddressController {
      * 根据id获取地址
      */
     @GetMapping("/address/{id}")
-    public ResultData get(@PathVariable int id){
-        Address address=addressServiceDao.get(id);
+    public ResultData get(@PathVariable int id) {
+        Address address = addressServiceDao.get(id);
         ResultData rd = new ResultData(200, "success");
-        rd.put("data",address);
+        rd.put("data", address);
         return rd;
     }
 
@@ -46,10 +46,10 @@ public class AddressController {
      * 根据用户id获取地址
      */
     @GetMapping("/address")
-    public ResultData list(HttpServletRequest request){
+    public ResultData list(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute(Sys.LOGIN_NAME);
         Integer user_id = user.getUser_id();
-        List<Address> list=addressServiceDao.list(user_id);
+        List<Address> list = addressServiceDao.list(user_id);
         ResultData rd = new ResultData(200, "success");
         rd.put("data", list);
         return rd;
@@ -59,13 +59,28 @@ public class AddressController {
      * 删除
      */
     @DeleteMapping("/address/{id}")
-    public ResultData delete(@PathVariable int id){
-        int delete=addressServiceDao.delete(id);
+    public ResultData delete(@PathVariable int id) {
+        int delete = addressServiceDao.delete(id);
         ResultData rd;
-        if (delete>0) {
+        if (delete > 0) {
             rd = new ResultData(200, "success");
-        }else {
-            rd=new ResultData(202,"fail");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        return rd;
+    }
+
+    /**
+     * 修改
+     */
+    @PutMapping("/address")
+    public ResultData edit(@RequestBody Address address) {
+        int edit = addressServiceDao.edit(address);
+        ResultData rd;
+        if (edit > 0) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
         }
         return rd;
     }

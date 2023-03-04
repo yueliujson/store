@@ -33,4 +33,9 @@ public class AddressService implements AddressServiceDao {
         return addressDao.list(user_id);
     }
 
+    @Override
+    public int edit(Address address) {
+        return addressDao.edit(address);
+    }
+
 }

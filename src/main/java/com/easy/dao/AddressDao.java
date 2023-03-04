@@ -14,4 +14,6 @@ public interface AddressDao {
     int delete(int id);
 
     List<Address> list(Integer user_id);
+
+    int edit(Address address);
 }
