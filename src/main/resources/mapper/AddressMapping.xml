@@ -31,4 +31,20 @@
         where id = #{id}
 
     </select>
+    <select id="list" resultType="com.easy.bean.Address">
+        select id,
+               user_id,
+               province,
+               city,
+               area,
+               address,
+               phone,
+               receiver,
+               state,
+               isdel,
+               createtime,
+               lastedittime
+        from address
+        where user_id = #{user_id}
+    </select>
 </mapper>

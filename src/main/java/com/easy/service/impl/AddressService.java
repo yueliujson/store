@@ -6,6 +6,8 @@ import com.easy.service.AddressServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddressService implements AddressServiceDao {
     @Autowired
@@ -24,6 +26,11 @@ public class AddressService implements AddressServiceDao {
     @Override
     public int delete(int id) {
         return addressDao.delete(id);
+    }
+
+    @Override
+    public List<Address> list(Integer user_id) {
+        return addressDao.list(user_id);
     }
 
 }
