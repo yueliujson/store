@@ -70,6 +70,17 @@
                             </dd>
                         </dl>
                     </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">订单接口</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" _url='doc/orderform/addorderform.jsp'>新增订单</a></dd>
+                            <dd><a href="javascript:;" _url='doc/orderform/deleteorderform.jsp'>删除订单</a></dd>
+                            <dd><a href="javascript:;" _url='doc/orderform/editorderform.jsp'>修改订单</a></dd>
+                            <dd><a href="javascript:;" _url='doc/orderform/getorderform.jsp'>获取订单</a></dd>
+                            <dd><a href="javascript:;" _url='doc/orderform/getorderformlist.jsp'>获取多个订单</a></dd>
+                            </dd>
+                        </dl>
+                    </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">menu group 2</a>
                         <dl class="layui-nav-child">
