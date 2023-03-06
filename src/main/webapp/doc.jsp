@@ -16,7 +16,6 @@
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
@@ -53,10 +52,21 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">商品分类接口</a>
+                        <a class="" href="javascript:;">商品图片接口</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;" _url='doc/productimg/addproductimg.jsp'>新增产品图片</a></dd>
                             <dd><a href="javascript:;" _url='doc/productimg/deleteproductimg.jsp'>删除产品图片</a></dd>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">收货地址接口</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" _url='doc/address/addaddress.jsp'>新增收货地址</a></dd>
+                            <dd><a href="javascript:;" _url='doc/address/deleteaddress.jsp'>删除收货地址</a></dd>
+                            <dd><a href="javascript:;" _url='doc/address/editaddress.jsp'>修改收货地址</a></dd>
+                            <dd><a href="javascript:;" _url='doc/address/getaddress.jsp'>获取收货地址</a></dd>
+                            <dd><a href="javascript:;" _url='doc/address/getaddresslist.jsp'>获取多个收货地址</a></dd>
                             </dd>
                         </dl>
                     </li>

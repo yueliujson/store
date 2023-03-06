@@ -32,6 +32,7 @@
         .layui-word-aux{
             color: red;
         }
+
     </style>
 </head>
 <div id="d1">

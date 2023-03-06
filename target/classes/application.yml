@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     username: root
@@ -16,5 +15,3 @@ mybatis:
 logging:
   level:
     com.easy.dao: debug
-server:
-  port: 8090

@@ -12,10 +12,11 @@ import java.util.List;
 public class AddressService implements AddressServiceDao {
     @Autowired
     AddressDao addressDao;
+
     @Override
     public int save(Address address) {
-        int save=addressDao.save(address);
-        return save;
+        return addressDao.save(address);
+
     }
 
     @Override
