@@ -30,23 +30,29 @@
     <div class="layui-form-item">
         <label class="layui-form-label">参数</label>
         <div class="layui-input-inline">
-            <label for="province">province</label><select class="layui-select" lay-verify="required" id="province" name="province" changedom="#city" style="width: 200px"></select>
+            <select class="layui-select" lay-verify="required" id="province"
+                    name="province" changedom="#city" lay-filter="province"
+                    style="width: 200px"></select>
         </div>
         <div class="layui-input-inline">
-            <label for="city">city</label><select class="layui-select" id="city" lay-verify="required" name="city" changedom="#area" style="width: 200px"></select>
-        </div>
-        <div class="layui-input-block">
-            <label for="area">area</label><select class="layui-select" id="area" lay-verify="required" name="area" style="width: 200px"></select>
-        </div>
-        <br>
-        <div class="layui-input-inline">
-            <label style="margin-left: 200px" for="address">address</label><input id="address" name="address" class="layui-input-block">
+            <select class="layui-select" id="city" lay-verify="required" name="city"
+                    changedom="#area" style="width: 200px" lay-filter="city"></select>
         </div>
         <div class="layui-input-inline">
-            <label style="margin-left: 200px" for="phone">phone</label><input id="phone" name="phone" class="layui-input-block">
+            <select class="layui-select" id="area" lay-verify="required" name="area"
+                    style="width: 200px" lay-filter="area"></select>
         </div>
         <div class="layui-input-inline">
-            <label style="margin-left: 200px" for="receiver">receiver</label><input id="receiver" name="receiver" class="layui-input-block">
+            <input id="address" name="address" lay-verify="username"
+                   class="layui-input" placeholder="请输入具体地址">
+        </div>
+        <div class="layui-input-inline">
+            <input id="phone" name="phone" lay-verify="required"
+                   class="layui-input" placeholder="请输入电话">
+        </div>
+        <div class="layui-input-inline">
+            <input id="receiver" name="receiver" lay-verify="required"
+                   class="layui-input" placeholder="请输入接收人">
         </div>
     </div>
 </div>
@@ -82,6 +88,51 @@
     </div>
 </div>
 
+<script src="static/jquery.js"></script>
+<script>
+    $("[changedom]").change(function () {
+        const text = $(this).attr("changedom");
+        const $dom = $(text);
+        const code = $(this).val();
+        getData(code, $dom);
+    })
+
+    const $option = $("<option></option>")
+    let $clone_option;
+
+    function showarea(data, $dom) {
+        data = data.districts[0].districts;
+        $dom.empty();
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            $clone_option = $option.clone();
+            $clone_option.val(item.name).text(item.name);
+            if (item.name === "台湾省") {
+                continue;
+            }
+            $dom.append($clone_option);
+        }
+        //主动触发change事件
+        $dom.trigger("change");
+        form.render("select");
+    }
+
+    // 显示省份信息
+    getData('100000', $("#province"))
+
+    function getData(code, $dom) {
+        $.ajax({
+            url: 'https://restapi.amap.com/v3/config/district',
+            data: {
+                key: '04047c53d75f14c1075c95ea839c49be',
+                keywords: code,
+            },
+            success: function (result) {
+                showarea(result, $dom);
+            }
+        })
+    }
+</script>
 <script src="static/layui/layui.all.js"></script>
 <script>
     const $ = layui.$;
@@ -99,50 +150,7 @@
                 $("[name='result']").text(result);
             }
         });
-        form.render('select','addForm');
     });
-
-</script>
-<script src="static/jquery.js"></script>
-<script>
-    $("[changedom]").change(function(){
-        const text=$(this).attr("changedom");
-        const $dom=$(text);
-        const code=$(this).val();
-        getData(code,$dom);
-    })
-
-    const $option=$("<option></option>")
-    let $clone_option;
-    function showarea(data,$dom){
-        data=data.districts[0].districts;
-        $dom.empty();
-        for(let i=0;i<data.length;i++){
-            const item = data[i];
-            $clone_option=$option.clone();
-            $clone_option.val(item.adcode).text(item.name);
-            if(item.name==="台湾省"){
-                continue;
-            }
-            $dom.append($clone_option);
-        }
-        //主动触发change事件
-        $dom.trigger("change")
-    }
-    // 显示省份信息
-    getData('100000',$("#province"))
-    function getData(code,$dom){
-        $.ajax({
-            url:'https://restapi.amap.com/v3/config/district',
-            data:{
-                key:'04047c53d75f14c1075c95ea839c49be',
-                keywords:code,
-            },
-            success:function(result){
-                showarea(result,$dom);
-            }
-        })
-    }
 </script>
 </body>
 </html>
