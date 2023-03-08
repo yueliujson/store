@@ -2,6 +2,7 @@ package com.easy.controller;
 
 import com.easy.bean.User;
 import com.easy.service.UserServiceDao;
+import com.easy.utils.PageInfo;
 import com.easy.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +31,12 @@ public class UserController {
     }
 
     @GetMapping("user")
-    public ResultData list(User user) {
-        List<User> list = userServiceDao.list(user);
+    public ResultData list(User user, PageInfo pageInfo) {
+        List<User> list = userServiceDao.list(user,pageInfo);
+        int count=userServiceDao.count(user);
         ResultData rd = new ResultData(200, "success");
         rd.put("data", list);
+        rd.put("count",count);
         return rd;
     }
 

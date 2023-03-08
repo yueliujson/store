@@ -1,11 +1,12 @@
 package com.easy.service;
 
 import com.easy.bean.User;
+import com.easy.utils.PageInfo;
 
 import java.util.List;
 
 public interface UserServiceDao {
-    List<User> list(User item);
+    List<User> list(User item, PageInfo pageInfo);
 
     User login(String username, String password);
 
@@ -18,4 +19,6 @@ public interface UserServiceDao {
     int save(User user);
 
     int saveUsers(List<User> user);
+
+    int count(User user);
 }

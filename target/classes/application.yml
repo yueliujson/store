@@ -15,3 +15,5 @@ mybatis:
 logging:
   level:
     com.easy.dao: debug
+server:
+  port: 80

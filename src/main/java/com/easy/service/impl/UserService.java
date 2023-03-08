@@ -4,10 +4,10 @@ import com.easy.bean.User;
 import com.easy.dao.UserDao;
 import com.easy.service.UserServiceDao;
 import com.easy.utils.MD5;
+import com.easy.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,13 +34,18 @@ public class UserService implements UserServiceDao {
     }
 
     @Override
+    public int count(User user) {
+        return userDao.count(user);
+    }
+
+    @Override
     public User get(int id) {
         return userDao.get(id);
     }
 
     @Override
-    public List<User> list(User item) {
-        return userDao.list(item);
+    public List<User> list(User item, PageInfo pageInfo) {
+        return userDao.list(item,pageInfo);
     }
 
     @Override

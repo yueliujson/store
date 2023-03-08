@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%
+<%--<%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
+%>--%>
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="<%=basePath%>">
+<%--    <base href="<%=basePath%>">--%>
     <meta charset="utf-8">
     <title>新增用户</title>
-    <link rel="stylesheet" href="static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
 </head>
 <body>
 <blockquote class="layui-elem-quote">新增用户</blockquote>
 <div class="layui-form-item">
     <label class="layui-form-label">地址</label>
     <div class="layui-input-block">
-        <input type="text" name="url" readonly class="layui-input" value="<%=basePath%>productImg">
+        <input type="text" name="url" readonly class="layui-input" value="<%--<%=basePath%>--%>productImg">
     </div>
 </div>
 <div class="layui-form-item">
@@ -30,18 +30,8 @@
 <button type="button" class="layui-btn" id="test1" style="margin-left: 10%">
     <i class="layui-icon">&#xe67c;</i>上传图片
 </button>
-<%--<div class="layui-form-item">
-    <label class="layui-form-label">相册</label>
-    <div class="layui-form-mid layui-word-aux" style="padding-top:0px ">
-        <button type="button" class="layui-btn layui-btn-small layui-btn-normal photosload" lay-data="{data:{type:'image'},accept:'images'}" data-name="photos">
-            <i class="layui-icon"></i>上传相册
-        </button>
-    </div>
-</div>
-<div class="layui-form-item">
-    <div name="photos" id="PhotosDom"></div>
-    <textarea name="img_jietu" placeholder="请输入文章描述" autocomplete="off" class="layui-textarea" style="width:300px "></textarea>
-</div>--%>
+<img src="D:/IdeaProjects/store/images/c0481066-9271-425e-af2d-9f882f14fab6.jpg" id="imgUrl" width="200px" height="200px">
+
 <div id="addForm" class="layui-form" lay-filter="addForm">
     <div class="layui-form-item">
         <label class="layui-form-label">参数</label>
@@ -103,7 +93,7 @@
 		</textarea>
     </div>
 </div>
-<script src="static/layui/layui.all.js"></script>
+<script src="../../static/layui/layui.all.js"></script>
 <script>
     var $ = layui.$;
     var upload = layui.upload;
@@ -117,6 +107,7 @@
             , done: function (res) {
                 //上传完毕回调
                 $("[name='imgUrl']").val(res.data.data);
+                $("#imgUrl").attr("src",res.data.data);
             }
             , error: function () {
                 //请求异常回调
@@ -166,6 +157,5 @@
 
 
 </script>
-<script src="static/layui/layui.all.js"></script>
 </body>
 </html>

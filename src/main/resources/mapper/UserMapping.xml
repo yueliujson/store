@@ -24,7 +24,8 @@
         update user
         set name=#{name},
             sex=#{sex},
-            phone=#{phone}
+            phone=#{phone},
+            isdel=0
         where user_id = #{user_id}
     </update>
 
@@ -58,14 +59,42 @@
     <select id="list" resultType="com.easy.bean.User">
         select user_id,name,sex,phone,username,userpass,createtime,state,isdel,lastlogintime from user
         <where>
+            <if test="user.isDel!=null">
+                isdel=#{user.isDel}
+            </if>
             <!--    where 标签相当于一个where语句
                     当where中生成了语句，那么sql中就会添加where语句
                     如果where中没有生成任何sql语句，sql就不会添加where语句 -->
-            <if test="name!=null">
-                <!--字符串拼接防止sql注入-->
-                <bind name="likeName" value="'%'+name+'%'"/>
-                name like #{likeName}
+            <trim prefix="and">
+                <if test="user.name!=null and user.name!=''">
+                    <!--字符串拼接防止sql注入-->
+                    <bind name="likeName" value="'%'+user.name+'%'"/>
+                    name like #{likeName}
+                </if>
+            </trim>
+            <trim prefix="and">
+                <if test="user.sex!=null">
+                    sex=#{user.sex}
+                </if>
+            </trim>
+        </where>
+        <if test="page.page!=null and page.page!=''">
+            limit #{page.start},#{page.limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from user
+        <where>
+            <if test="isDel!=null">
+                isdel=#{isDel}
             </if>
+            <trim prefix="and">
+                <if test="name!=null and name!=''">
+                    <bind name="likeName" value="'%'+name+'%'"/>
+                    name like #{likeName}
+                </if>
+            </trim>
             <trim prefix="and">
                 <if test="sex!=null">
                     sex=#{sex}

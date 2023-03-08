@@ -1,6 +1,7 @@
 package com.easy.dao;
 
 import com.easy.bean.User;
+import com.easy.utils.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,11 +16,13 @@ public interface UserDao {
 
     User get(int id);
 
-    List<User> list(User item);
+    List<User> list(@Param("user") User user,@Param("page") PageInfo page);
 
     int delete(int id);
 
     int edit(User user);
 
     int saveUsers(@Param("user") List<User> user);
+
+    int count(User user);
 }
