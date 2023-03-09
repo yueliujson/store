@@ -8,7 +8,7 @@ public class Sys {
     private static String path;
     static{
         File file=new File("");
-        path = file.getAbsolutePath()+"\\images\\";
+        path = file.getAbsolutePath()+"\\src\\main\\webapp\\static\\img\\";
     }
     /**图片文件路径*/
     public static final String IMAGES_PATH=path;

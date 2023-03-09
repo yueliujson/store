@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%--<%
+<%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>--%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<%--    <base href="<%=basePath%>">--%>
+    <base href="<%=basePath%>">
     <meta charset="utf-8">
     <title>新增用户</title>
     <link rel="stylesheet" href="../../static/layui/css/layui.css">
@@ -17,7 +17,7 @@
 <div class="layui-form-item">
     <label class="layui-form-label">地址</label>
     <div class="layui-input-block">
-        <input type="text" name="url" readonly class="layui-input" value="<%--<%=basePath%>--%>productImg">
+        <input type="text" name="url" readonly class="layui-input" value="<%=basePath%>productImg">
     </div>
 </div>
 <div class="layui-form-item">

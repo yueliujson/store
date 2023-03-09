@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -59,7 +60,7 @@ public class ProductImgController {
     }
 
     @PostMapping("/productImg/img")
-    public ResultData save(@RequestParam("file") MultipartFile file){
+    public ResultData save(@RequestParam("file") MultipartFile file, HttpServletRequest request){
         ResultData rd ;
         if (file.isEmpty()){
             rd=new ResultData(202,"fail");
@@ -74,6 +75,8 @@ public class ProductImgController {
             String filepath=Sys.IMAGES_PATH;
             //上传
             File dest=new File(filepath,filename);
+            String path = request.getContextPath();
+            String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
             //判断路径是否存在
             if (!dest.getParentFile().exists()){
                 dest.getParentFile().mkdirs();
@@ -83,7 +86,7 @@ public class ProductImgController {
             } catch (IOException e) {
                 return new ResultData(202,"fail");
             }
-            String reName=Sys.IMAGES_PATH+filename;
+            String reName=basePath+"static/img/"+filename;
             rd=new ResultData(200,"success");
             rd.put("data",reName);
         }

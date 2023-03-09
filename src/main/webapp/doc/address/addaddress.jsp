@@ -107,9 +107,6 @@
             const item = data[i];
             $clone_option = $option.clone();
             $clone_option.val(item.name).text(item.name);
-            if (item.name === "台湾省") {
-                continue;
-            }
             $dom.append($clone_option);
         }
         //主动触发change事件

@@ -35,16 +35,16 @@
                lastedittime,
                isdel
         from productkind
-        where id = #{id}
+        where parent_id = #{id} and isdel=0
     </select>
 
     <resultMap id="getChild" type="com.easy.bean.ProductKind">
         <id column="id" property="id"/>
-        <collection property="productKind" select="child" column="id"/>
+        <result column="isDel" property="isDel"/>
+        <collection property="productKind" select="child" column="{id=id,isDel=isDel}"/>
     </resultMap>
 
-    <select id="child" resultMap="getProduct">
-        <bind name="likeName" value="'%'+name+'%'"/>
+    <select id="child" resultType="com.easy.bean.ProductKind">
         select id,
         name,
         info,
@@ -55,7 +55,7 @@
         lastedittime,
         isdel
         from productkind
-        where parent_id=#{id}
+        where parent_id=#{id} and isdel=#{isDel}
     </select>
 
     <select id="list" resultMap="getChild">
@@ -76,8 +76,8 @@
                     id=#{id}
                 </when>
                 <otherwise>
-                    <bind name="likeName" value="'%'+name+'%'"/>
                     <if test="name!=null">
+                        <bind name="likeName" value="'%'+name+'%'"/>
                         name like #{likeName}
                     </if>
                     <trim prefix="and">
@@ -95,25 +95,27 @@
         </where>
     </select>
 
-    <resultMap id="getProduct" type="com.easy.bean.ProductKind">
-        <id property="id" column="id"/>
-        <collection property="products" column="id" select="product"/>
-    </resultMap>
 
-    <select id="product" resultType="com.easy.bean.Product">
-        select product_id,
-               name,
-               price,
-               old_price,
-               info,
-               count,
-               type_id,
-               state,
-               isdel,
-               createtime,
-               creator,
-               lastedittime
-        from product
-        where type_id = #{id}
-    </select>
+
+<!--    <resultMap id="getProduct" type="com.easy.bean.ProductKind">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <collection property="products" column="id" select="product"/>-->
+<!--    </resultMap>-->
+
+<!--    <select id="product" resultType="com.easy.bean.Product">-->
+<!--        select product_id,-->
+<!--               name,-->
+<!--               price,-->
+<!--               old_price,-->
+<!--               info,-->
+<!--               count,-->
+<!--               type_id,-->
+<!--               state,-->
+<!--               isdel,-->
+<!--               createtime,-->
+<!--               creator,-->
+<!--               lastedittime-->
+<!--        from product-->
+<!--        where type_id = #{id}-->
+<!--    </select>-->
 </mapper>
