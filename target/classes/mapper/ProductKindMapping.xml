@@ -79,10 +79,12 @@
                     id=#{item.id}
                 </when>
                 <otherwise>
-                    <if test="item.name!=null and item.name!=''">
-                        <bind name="likeName" value="'%'+item.name+'%'"/>
-                        name like #{likeName}
-                    </if>
+                    <trim prefix="and">
+                        <if test="item.name!=null and item.name!=''">
+                            <bind name="likeName" value="'%'+item.name+'%'"/>
+                            name like #{likeName}
+                        </if>
+                    </trim>
                     <trim prefix="and">
                         <if test="item.isDel!=null">
                             isdel=#{item.isDel}

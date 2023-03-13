@@ -23,10 +23,17 @@
 
     <update id="edit">
         update user
-        set name=#{name},
+        set
+        <if test="name!=null and name!=''">
+            name=#{name},
+        </if>
+        <if test="sex!=null">
             sex=#{sex},
+        </if>
+        <if test="phone!=null">
             phone=#{phone},
-            isdel=0
+        </if>
+        isdel=0
         where user_id = #{user_id}
     </update>
 
