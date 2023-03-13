@@ -87,6 +87,9 @@
         finishtime,
         isdel
         from orderform
+        <if test="orderForm.order_id!=null and orderForm.order_id!=''">
+            order_id=#{orderForm.order_id}
+        </if>
         <if test="pageInfo.start!=null">
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>

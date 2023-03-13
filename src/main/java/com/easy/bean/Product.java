@@ -37,6 +37,25 @@ public class Product {
     /**产品图片*/
     private List<ProductImg> productImg;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "product_id=" + product_id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", old_price=" + old_price +
+                ", info='" + info + '\'' +
+                ", count=" + count +
+                ", type_id=" + type_id +
+                ", state=" + state +
+                ", isDel=" + isDel +
+                ", createTime=" + createTime +
+                ", creator='" + creator + '\'' +
+                ", lastEditTime=" + lastEditTime +
+                ", productImg=" + productImg +
+                '}';
+    }
+
     public Product() {
     }
 

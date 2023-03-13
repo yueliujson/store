@@ -58,7 +58,7 @@ public class ProductService implements ProductServiceDao {
      */
     @Override
     public int edit(Product item) {
-        if (item.getState() != 0) {
+        if (item.getState() != null) {
             //如果不是下架，或者不是下架状态，商品信息不可修改
             return 0;
         }
