@@ -178,4 +178,6 @@ public class Product {
         this.lastEditTime = lastEditTime;
         this.productImg = productImg;
     }
+
+
 }

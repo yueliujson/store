@@ -4,8 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.easy.dao.ProductImgDao">
     <insert id="save">
-        insert into productimg(product_id, imgurl, sort)
-        values (#{product_id}, #{imgUrl}, #{sort})
+        insert into productimg(product_id, imgurl)
+        values
+        <foreach collection="item" separator="," close="" item="item">
+            (
+            #{item.product_id},
+            #{item.imgUrl}
+            )
+        </foreach>
     </insert>
     <delete id="delete">
         delete

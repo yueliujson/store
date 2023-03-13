@@ -4,6 +4,7 @@ import com.easy.bean.Product;
 import com.easy.bean.ProductImg;
 import com.easy.dao.ProductDao;
 import com.easy.service.ProductServiceDao;
+import com.easy.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,8 @@ public class ProductService implements ProductServiceDao {
      * 模糊查询商品
      */
     @Override
-    public List<Product> list(Product item) {
-        List<Product> list = productDao.list(item);
+    public List<Product> list(Product item, PageInfo pageInfo) {
+        List<Product> list = productDao.list(item,pageInfo);
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
                 List<ProductImg> productImg = list.get(i).getProductImg();
@@ -43,6 +44,20 @@ public class ProductService implements ProductServiceDao {
             }
         }
         return list;
+    }
+    @Override
+    public int count(Product product) {
+        return productDao.count(product);
+    }
+
+    @Override
+    public int count(int id) {
+        return productDao.getCount(id);
+    }
+
+    @Override
+    public List<Product> getParent(int id) {
+        return productDao.getParent(id);
     }
 
     /**
@@ -72,5 +87,8 @@ public class ProductService implements ProductServiceDao {
     public int save(Product item) {
         return productDao.save(item);
     }
+
+
+
 
 }

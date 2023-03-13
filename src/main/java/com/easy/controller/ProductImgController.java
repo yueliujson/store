@@ -26,7 +26,7 @@ public class ProductImgController {
         return rd;
     }
     @PostMapping("/productImg")
-    public ResultData save(@RequestBody ProductImg productImg){
+    public ResultData save(@RequestBody ProductImg[] productImg){
         int save = productImgServiceDao.save(productImg);
         ResultData rd;
         if (save > 0) {

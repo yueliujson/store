@@ -1,11 +1,12 @@
 package com.easy.service;
 
 import com.easy.bean.Product;
+import com.easy.utils.PageInfo;
 
 import java.util.List;
 
 public interface ProductServiceDao {
-    List<Product> list(Product item);
+    List<Product> list(Product item, PageInfo pageInfo);
 
     Product get(int id);
 
@@ -15,4 +16,9 @@ public interface ProductServiceDao {
 
     int save(Product item);
 
+    int count(Product product);
+
+    int count(int id);
+
+    List<Product> getParent(int id);
 }

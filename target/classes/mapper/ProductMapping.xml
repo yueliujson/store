@@ -49,6 +49,20 @@
         select product_id,name,price,old_price,info,count,type_id,state,isdel,createtime,creator,lastedittime
         from product
         <where>
+            <if test="item.name!=null and item.name!=''">
+                <bind name="likeName" value="'%'+item.name+'%'"/>
+                name like #{likeName}
+            </if>
+        </where>
+        <if test="pageInfo.page!=null">
+            limit #{pageInfo.start},#{pageInfo.limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from product
+        <where>
             <if test="name!=null and name!=''">
                 <bind name="likeName" value="'%'+name+'%'"/>
                 name like #{likeName}
@@ -66,4 +80,27 @@
         from productimg
         where product_id = #{product_id}
     </select>
+    <select id="getParent" resultType="com.easy.bean.Product">
+        select product_id,
+               name,
+               price,
+               old_price,
+               info,
+               count,
+               type_id,
+               state,
+               isdel,
+               createtime,
+               creator,
+               lastedittime
+        from product
+        where type_id = #{id}
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+            select count(*)
+            from product
+            where type_id = #{id}
+    </select>
+
+
 </mapper>

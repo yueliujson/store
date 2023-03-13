@@ -99,12 +99,14 @@ public class ProductImgService implements ProductImgServiceDao {
     }
 
     @Override
-    public int save(ProductImg item) {
+    public int save(ProductImg[] item) {
         if (item != null) {
-            String imgUrl = item.getImgUrl();
-            int index = imgUrl.indexOf("img");
-            String substring = imgUrl.substring(index + 7);
-            item.setImgUrl(substring);
+            for (int i = 0; i < item.length; i++) {
+                String imgUrl = item[i].getImgUrl();
+                int index = imgUrl.lastIndexOf("/");
+                String substring = imgUrl.substring(index+1);
+                item[i].setImgUrl(substring);
+            }
         }
         int save = productImgDao.save(item);
         return save;

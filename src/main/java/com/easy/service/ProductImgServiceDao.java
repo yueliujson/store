@@ -13,5 +13,5 @@ public interface ProductImgServiceDao {
 
     int edit(ProductImg item);
 
-    int save(ProductImg item);
+    int save(ProductImg[] item);
 }

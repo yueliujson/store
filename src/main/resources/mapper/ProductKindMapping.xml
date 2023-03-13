@@ -91,7 +91,9 @@
                 </otherwise>
             </choose>
         </where>
-        limit #{page.start},#{page.limit}
+        <if test="page.limit !=0 ">
+            limit #{page.start},#{page.limit}
+        </if>
     </select>
 
     <select id="getChildList" resultType="com.easy.bean.ProductKind">
@@ -106,7 +108,7 @@
         isdel
         from productkind
         where parent_id = #{id} and isdel=0
-        <if test="page.page!=null and page.page!=''">
+        <if test="page.limit !=0 ">
             limit #{page.start},#{page.limit}
         </if>
     </select>

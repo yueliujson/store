@@ -1,8 +1,8 @@
 package com.easy.utils;
 
 public class PageInfo {
-    private int page=1;
-    private int limit=10;
+    private int page;
+    private int limit;
 
     private int start;
 

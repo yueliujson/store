@@ -11,6 +11,7 @@
         insert into user(name, sex, phone, username, userpass, createtime)
         values (#{name}, #{sex}, #{phone}, #{username}, #{userpass}, now())
     </insert>
+
     <insert id="saveUsers">
         insert into user(name, sex, phone, username, userpass, createtime)
         values

@@ -2,6 +2,7 @@ package com.easy.dao;
 
 import com.easy.bean.ProductImg;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface ProductImgDao {
 
     int delete(int id);
 
-    int save(ProductImg item);
+    int save(@Param("item") ProductImg[] item);
 }
