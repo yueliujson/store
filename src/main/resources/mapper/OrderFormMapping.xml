@@ -65,4 +65,34 @@
         from orderform
         where user_id = #{user_id}
     </select>
+
+
+    <resultMap id="getDir" type="com.easy.bean.OrderForm">
+        <result property="order_id" column="order_id"/>
+        <collection property="orderFormDirs" column="order_id" select="orderFormDir"/>
+    </resultMap>
+
+    <select id="getList" resultMap="getDir">
+        select id,
+        order_id,
+        user_id,
+        money,
+        address,
+        phone,
+        receiver,
+        state,
+        createtime,
+        paymenttime,
+        sendtime,
+        finishtime,
+        isdel
+        from orderform
+        <if test="pageInfo.start!=null">
+            limit #{pageInfo.start},#{pageInfo.limit}
+        </if>
+    </select>
+
+    <select id="orderFormDir" resultType="com.easy.bean.OrderFormDir">
+        select o.id,order_id,o.product_id,o.count,o.price,p.name from orderformdir o join product p on o.product_id=p.product_id where o.order_id=#{o.order_id}
+    </select>
 </mapper>

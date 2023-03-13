@@ -102,7 +102,7 @@ public class ProductImgService implements ProductImgServiceDao {
     public int save(ProductImg item) {
         if (item != null) {
             String imgUrl = item.getImgUrl();
-            int index = imgUrl.indexOf("images");
+            int index = imgUrl.indexOf("img");
             String substring = imgUrl.substring(index + 7);
             item.setImgUrl(substring);
         }

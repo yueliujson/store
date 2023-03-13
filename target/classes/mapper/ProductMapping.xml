@@ -49,7 +49,7 @@
         select product_id,name,price,old_price,info,count,type_id,state,isdel,createtime,creator,lastedittime
         from product
         <where>
-            <if test="name!=null">
+            <if test="name!=null and name!=''">
                 <bind name="likeName" value="'%'+name+'%'"/>
                 name like #{likeName}
             </if>

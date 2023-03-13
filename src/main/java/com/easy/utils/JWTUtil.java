@@ -15,7 +15,7 @@ public class JWTUtil {
     //1.通过jwt生成token字符串。
     public static String createToken(Map<String,Object> params){
 
-        Map<String,Object> head=new HashMap<String,Object>();
+        Map<String,Object> head=new HashMap<>();
         head.put("alg","HS256");
         head.put("typ","JWT");
 
@@ -70,8 +70,7 @@ public class JWTUtil {
         String token = createToken(map);
         System.out.println(token);
 
-        Map<String, Object> map2
-                = decodeJWT(token);
+        Map<String, Object> map2= decodeJWT(token);
         System.out.println(map2);
 
     }

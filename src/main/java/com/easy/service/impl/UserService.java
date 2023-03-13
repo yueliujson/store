@@ -60,6 +60,9 @@ public class UserService implements UserServiceDao {
 
 
     public User login(String username, String password) {
-        return null;
+        User user = new User();
+        user.setUsername(username);
+        user.setUserpass(password);
+        return user;
     }
 }

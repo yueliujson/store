@@ -3,6 +3,7 @@ package com.easy.service.impl;
 import com.easy.bean.OrderForm;
 import com.easy.dao.OrderFormDao;
 import com.easy.service.OrderFormServiceDao;
+import com.easy.utils.PageInfo;
 import com.easy.utils.SnowFlakeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,10 @@ public class OrderFormService implements OrderFormServiceDao {
     @Override
     public int delete(int id) {
         return orderFormDao.delete(id);
+    }
+
+    @Override
+    public List<OrderForm> getList(OrderForm orderForm, PageInfo pageInfo) {
+        return orderFormDao.getList(orderForm,pageInfo);
     }
 }

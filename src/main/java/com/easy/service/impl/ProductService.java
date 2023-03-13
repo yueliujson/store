@@ -1,6 +1,7 @@
 package com.easy.service.impl;
 
 import com.easy.bean.Product;
+import com.easy.bean.ProductImg;
 import com.easy.dao.ProductDao;
 import com.easy.service.ProductServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,18 @@ public class ProductService implements ProductServiceDao {
      */
     @Override
     public List<Product> list(Product item) {
-        return productDao.list(item);
+        List<Product> list = productDao.list(item);
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                List<ProductImg> productImg = list.get(i).getProductImg();
+                if (productImg!=null){
+                    for (int j = 0; j < productImg.size(); j++) {
+                        productImg.get(j).setImgUrl("http://localhost:80/static/img/"+productImg.get(j).getImgUrl());
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     /**

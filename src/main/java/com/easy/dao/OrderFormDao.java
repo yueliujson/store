@@ -1,7 +1,9 @@
 package com.easy.dao;
 
 import com.easy.bean.OrderForm;
+import com.easy.utils.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,4 +18,6 @@ public interface OrderFormDao {
     int edit(OrderForm orderForm);
 
     int delete(int id);
+
+    List<OrderForm> getList(@Param("orderForm") OrderForm orderForm,@Param("pageInfo") PageInfo pageInfo);
 }

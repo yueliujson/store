@@ -2,6 +2,7 @@ package com.easy.controller;
 
 import com.easy.bean.ProductKind;
 import com.easy.service.ProductKindServiceDao;
+import com.easy.utils.PageInfo;
 import com.easy.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,12 @@ public class ProductKindController {
     }
 
     @GetMapping("/productKind")
-    public ResultData list(ProductKind productKind) {
-        List<ProductKind> list = productKindServiceDao.list(productKind);
+    public ResultData list(ProductKind productKind,PageInfo pageInfo) {
+        List<ProductKind> list = productKindServiceDao.list(productKind,pageInfo);
         ResultData rd = new ResultData(200, "success");
+        int count=productKindServiceDao.count(productKind);
         rd.put("data", list);
+        rd.put("count",count);
         return rd;
     }
 

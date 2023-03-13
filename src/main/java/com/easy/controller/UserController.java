@@ -2,12 +2,15 @@ package com.easy.controller;
 
 import com.easy.bean.User;
 import com.easy.service.UserServiceDao;
+import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import com.easy.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Controller
@@ -17,13 +20,16 @@ public class UserController {
     @Autowired
     UserServiceDao userServiceDao;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResultData login(String username, String password) {
         User user = userServiceDao.login(username, password);
         ResultData rd;
         if (user!=null) {
+            Map<String,Object> map=new HashMap();
+            map.put("username",username);
+            String token = JWTUtil.createToken(map);
             rd = new ResultData(200, "success");
-            rd.put("data", username);
+            rd.put("data", token);
         }else {
             rd = new ResultData(202, "fail");
         }
