@@ -60,6 +60,11 @@ public class ProductService implements ProductServiceDao {
         return productDao.getParent(id);
     }
 
+    @Override
+    public int editState(Product product) {
+        return productDao.editState(product);
+    }
+
     /**
      * 是否删除
      */
@@ -73,7 +78,7 @@ public class ProductService implements ProductServiceDao {
      */
     @Override
     public int edit(Product item) {
-        if (item.getState() != null) {
+        if (item.getState() != 0) {
             //如果不是下架，或者不是下架状态，商品信息不可修改
             return 0;
         }

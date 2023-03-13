@@ -79,6 +79,18 @@ public class ProductController {
         return rd;
     }
 
+    @PutMapping("product/state")
+    public ResultData editState(@RequestBody Product product) {
+        int edit = productServiceDao.editState(product);
+        ResultData rd;
+        if (edit > 0) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        return rd;
+    }
+
     /**
      * 删除商品信息
      */

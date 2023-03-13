@@ -27,6 +27,9 @@
             state=0
         where product_id = #{product_id}
     </update>
+    <update id="editState">
+        update product set state=#{state} where product_id=#{product_id}
+    </update>
 
     <select id="get" resultType="com.easy.bean.Product">
         select product_id,
@@ -52,6 +55,9 @@
             <if test="item.name!=null and item.name!=''">
                 <bind name="likeName" value="'%'+item.name+'%'"/>
                 name like #{likeName}
+            </if>
+            <if test="item.state!=null and item.state!='' ">
+                state=#{item.state}
             </if>
         </where>
         <if test="pageInfo.page!=null">
@@ -97,9 +103,9 @@
         where type_id = #{id}
     </select>
     <select id="getCount" resultType="java.lang.Integer">
-            select count(*)
-            from product
-            where type_id = #{id}
+        select count(*)
+        from product
+        where type_id = #{id}
     </select>
 
 

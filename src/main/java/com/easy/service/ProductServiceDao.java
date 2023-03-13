@@ -21,4 +21,6 @@ public interface ProductServiceDao {
     int count(int id);
 
     List<Product> getParent(int id);
+
+    int editState(Product product);
 }
