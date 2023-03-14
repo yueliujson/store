@@ -1,6 +1,7 @@
 package com.easy.controller;
 
 import com.easy.bean.User;
+import com.easy.interceptor.LoginInterceptor;
 import com.easy.service.UserServiceDao;
 import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
@@ -8,6 +9,7 @@ import com.easy.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,28 +23,39 @@ public class UserController {
     UserServiceDao userServiceDao;
 
     @PostMapping("/login")
-    public ResultData login(String username, String password) {
+    public ResultData login(@RequestBody User userLogin , HttpServletRequest request) {
+        String username=userLogin.getUsername();
+        String password = userLogin.getUserpass();
         User user = userServiceDao.login(username, password);
         ResultData rd;
-        if (user!=null) {
-            Map<String,Object> map=new HashMap();
-            map.put("username",username);
+        if (user != null) {
+            Map<String, Object> map = new HashMap();
+            map.put("username", username);
             String token = JWTUtil.createToken(map);
             rd = new ResultData(200, "success");
-            rd.put("data", token);
-        }else {
-            rd = new ResultData(202, "fail");
+            LoginInterceptor.list.add(username);
+            rd.put("token", token);
+        } else {
+            rd = new ResultData(401, "fail");
         }
+        return rd;
+    }
+
+    @GetMapping("/exit")
+    public ResultData exit(HttpServletRequest request) {
+        ResultData rd;
+        request.getSession().removeAttribute("token");
+        rd = new ResultData(200, "success");
         return rd;
     }
 
     @GetMapping("user")
     public ResultData list(User user, PageInfo pageInfo) {
-        List<User> list = userServiceDao.list(user,pageInfo);
-        int count=userServiceDao.count(user);
+        List<User> list = userServiceDao.list(user, pageInfo);
+        int count = userServiceDao.count(user);
         ResultData rd = new ResultData(200, "success");
         rd.put("data", list);
-        rd.put("count",count);
+        rd.put("count", count);
         return rd;
     }
 
@@ -94,11 +107,11 @@ public class UserController {
 
     @PostMapping("/users")
     public ResultData save(@RequestBody List<User> user) {
-        int save=userServiceDao.saveUsers(user);
+        int save = userServiceDao.saveUsers(user);
         ResultData rd;
         if (save > 0) {
             rd = new ResultData(200, "success");
-            rd.put("data","保存成功了"+save+"条");
+            rd.put("data", "保存成功了" + save + "条");
         } else {
             rd = new ResultData(202, "fail");
         }
