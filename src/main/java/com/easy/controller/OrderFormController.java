@@ -40,6 +40,7 @@ public class OrderFormController {
 
     @GetMapping("/orderForm")
     public ResultData list(OrderForm orderForm, PageInfo pageInfo) {
+        System.out.println(orderForm);
         List<OrderForm> list ;
         list = orderFormServiceDao.getList(orderForm, pageInfo);
         ResultData rd = new ResultData(200, "success");

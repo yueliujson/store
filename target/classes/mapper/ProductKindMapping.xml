@@ -10,13 +10,22 @@
 
     <update id="edit">
         update productkind
-        set name=#{name},
+        set
+        <if test="name!=null">
+            name=#{name},
+        </if>
+        <if test="info!=null">
             info=#{info},
+        </if>
+        <if test="state!=null">
             state=#{state},
-            lastedittime=now()
+        </if>
+        <if test="isDel!=null">
+            isdel=#{isDel},
+        </if>
+        lastedittime=now()
         where id = #{id}
     </update>
-
     <update id="delete">
         update productkind
         set isdel=1,
