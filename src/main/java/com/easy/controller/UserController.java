@@ -1,7 +1,7 @@
 package com.easy.controller;
 
 import com.easy.bean.User;
-import com.easy.interceptor.LoginInterceptor;
+import com.easy.filter.LoginFilter;
 import com.easy.service.UserServiceDao;
 import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,14 @@ public class UserController {
     @Autowired
     UserServiceDao userServiceDao;
 
+    @GetMapping("/exception")
+    public static ResultData exception() {
+        return new ResultData(401, "fail");
+    }
+
     @PostMapping("/login")
-    public ResultData login(@RequestBody User userLogin , HttpServletRequest request) {
-        String username=userLogin.getUsername();
+    public ResultData login(@RequestBody User userLogin, HttpServletRequest request) {
+        String username = userLogin.getUsername();
         String password = userLogin.getUserpass();
         User user = userServiceDao.login(username, password);
         ResultData rd;
@@ -33,7 +39,7 @@ public class UserController {
             map.put("username", username);
             String token = JWTUtil.createToken(map);
             rd = new ResultData(200, "success");
-            LoginInterceptor.list.add(username);
+            LoginFilter.list.add(username);
             rd.put("token", token);
         } else {
             rd = new ResultData(401, "fail");
