@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.easy.dao.ProductDao">
+    <update id="edit">
+        update product
+        set name=#{name},
+            price=#{price},
+            old_price=#{old_price},
+            info=#{info},
+            count=#{count},
+            lastedittime=now()
+        where product_id = #{product_id}
+    </update>
+
+    <insert id="save">
+        insert into product(name, price, old_price, info, count, type_id, createtime, creator, lastedittime)
+        values (#{name}, #{price}, #{old_price}, #{info}, #{count}, #{type_id}, now(), #{creator}, now())
+    </insert>
+
+    <update id="delete">
+        update product
+        set isdel=1,
+            lastedittime=now(),
+            state=0
+        where product_id = #{product_id}
+    </update>
+    <update id="editState">
+        update product set state=#{state} where product_id=#{product_id}
+    </update>
+
+    <select id="get" resultType="com.easy.bean.Product">
+        select product_id,
+               name,
+               price,
+               old_price,
+               info,
+               count,
+               type_id,
+               state,
+               isdel,
+               createtime,
+               creator,
+               lastedittime
+        from product
+        where product_id = #{product_id}
+    </select>
+
+    <select id="list" resultMap="img">
+        select product_id,name,price,old_price,info,count,type_id,state,isdel,createtime,creator,lastedittime
+        from product
+        <where>
+            <if test="item.name!=null and item.name!=''">
+                <bind name="likeName" value="'%'+item.name+'%'"/>
+                name like #{likeName}
+            </if>
+            <if test="item.state!=null and item.state!='' ">
+                state=#{item.state}
+            </if>
+        </where>
+        <if test="pageInfo.limit!=0">
+            limit #{pageInfo.start},#{pageInfo.limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from product
+        <where>
+            <if test="name!=null and name!=''">
+                <bind name="likeName" value="'%'+name+'%'"/>
+                name like #{likeName}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="img" type="com.easy.bean.Product">
+        <id property="product_id" column="product_id"/>
+        <collection property="productImg" column="product_id" select="pro_img"/>
+    </resultMap>
+
+    <select id="pro_img" resultType="com.easy.bean.ProductImg">
+        select id, product_id, imgurl, sort
+        from productimg
+        where product_id = #{product_id}
+    </select>
+    <select id="getParent" resultType="com.easy.bean.Product">
+        select product_id,
+               name,
+               price,
+               old_price,
+               info,
+               count,
+               type_id,
+               state,
+               isdel,
+               createtime,
+               creator,
+               lastedittime
+        from product
+        where type_id = #{id}
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*)
+        from product
+        where type_id = #{id}
+    </select>
+
+
+</mapper>
