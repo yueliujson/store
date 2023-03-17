@@ -60,9 +60,12 @@ public class UserService implements UserServiceDao {
 
 
     public User login(String username, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setUserpass(password);
+        User user=userDao.login(username);
+        if (user!=null){
+            if (!user.getUserpass().equals(password)){
+                return null;
+            }
+        }
         return user;
     }
 }

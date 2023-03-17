@@ -110,5 +110,11 @@
             </trim>
         </where>
     </select>
+    <select id="getUserid" resultType="java.lang.Integer">
+        select user_id from user where username=#{username}
+    </select>
+    <select id="login" resultType="com.easy.bean.User">
+        select user_id,name,username,userpass from user where username=#{username} and isdel=0
+    </select>
 
 </mapper>

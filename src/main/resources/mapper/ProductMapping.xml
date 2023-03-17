@@ -60,7 +60,7 @@
                 state=#{item.state}
             </if>
         </where>
-        <if test="pageInfo.page!=null">
+        <if test="pageInfo.limit!=0">
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>
     </select>

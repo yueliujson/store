@@ -1,5 +1,6 @@
 package com.easy.filter;
 
+import com.easy.bean.User;
 import com.easy.utils.JWTUtil;
 
 import javax.servlet.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@WebFilter(urlPatterns = {"/user","/orderForm","/address"})
+@WebFilter(urlPatterns = {"/user","/address","/orderForm","/shopping"})
 public class LoginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,7 +36,7 @@ public class LoginFilter implements Filter {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(username)) {
                     flag = false;
-                    chain.doFilter(req, response);
+                    chain.doFilter(req, resp);
                 }
             }
             if(flag) {

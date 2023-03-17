@@ -23,24 +23,27 @@ public class UserController {
     @Autowired
     UserServiceDao userServiceDao;
 
-    @GetMapping("/exception")
+    @RequestMapping("/exception")
+    @ResponseBody
     public static ResultData exception() {
         return new ResultData(401, "fail");
     }
 
     @PostMapping("/login")
-    public ResultData login(@RequestBody User userLogin, HttpServletRequest request) {
+    public ResultData login(@RequestBody User userLogin) {
         String username = userLogin.getUsername();
         String password = userLogin.getUserpass();
         User user = userServiceDao.login(username, password);
         ResultData rd;
         if (user != null) {
-            Map<String, Object> map = new HashMap();
+            user.setUserpass("");
+            Map<String, Object> map = new HashMap<>();
             map.put("username", username);
             String token = JWTUtil.createToken(map);
             rd = new ResultData(200, "success");
             LoginFilter.list.add(username);
             rd.put("token", token);
+            rd.put("id",user.getUser_id());
         } else {
             rd = new ResultData(401, "fail");
         }

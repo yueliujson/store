@@ -2,6 +2,8 @@ package com.easy.bean;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * 购物车
  */
@@ -13,4 +15,6 @@ public class Shopping {
     private Integer product_id;
     /**产品数量*/
     private Integer count;
+    /**产品*/
+    private Product product;
 }

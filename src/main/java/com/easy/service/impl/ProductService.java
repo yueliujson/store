@@ -38,13 +38,14 @@ public class ProductService implements ProductServiceDao {
                 List<ProductImg> productImg = list.get(i).getProductImg();
                 if (productImg!=null){
                     for (int j = 0; j < productImg.size(); j++) {
-                        productImg.get(j).setImgUrl("http://localhost:80/static/img/"+productImg.get(j).getImgUrl());
+                        productImg.get(j).setImgUrl("http://localhost/static/img/"+productImg.get(j).getImgUrl());
                     }
                 }
             }
         }
         return list;
     }
+
     @Override
     public int count(Product product) {
         return productDao.count(product);

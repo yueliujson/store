@@ -25,4 +25,8 @@ public interface UserDao {
     int saveUsers(@Param("user") List<User> user);
 
     int count(User user);
+
+    Integer getUserid(String username);
+
+    User login(String username);
 }
