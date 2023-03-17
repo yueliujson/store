@@ -128,4 +128,18 @@ public class UserController {
         rd.put("data", user);
         return rd;
     }
+
+    @GetMapping("isLogin")
+    public ResultData isLogin(HttpServletRequest request){
+        String token = request.getHeader("token");
+        System.out.println(token);
+        if (token==null){
+            return new ResultData(202,"fail");
+        }
+        Map<String, Object> map = JWTUtil.decodeJWT(token);
+        String username = (String) map.get("username");
+        ResultData rd = new ResultData(200, "success");
+        rd.put("username",username);
+        return rd;
+    }
 }

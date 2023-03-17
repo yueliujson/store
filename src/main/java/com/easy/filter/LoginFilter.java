@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).equals(username)) {
                     flag = false;
-                    chain.doFilter(req, resp);
+                    chain. doFilter(req, resp);
                 }
             }
             if(flag) {
