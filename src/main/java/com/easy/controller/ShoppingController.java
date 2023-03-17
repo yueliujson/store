@@ -35,4 +35,16 @@ public class ShoppingController {
         rd.put("data", list);
         return rd;
     }
+
+    @DeleteMapping("/shopping/{id}")
+    public ResultData delete(@PathVariable int id,HttpServletRequest request){
+        int delete=shoppingServiceDao.delete(id,request);
+        ResultData rd;
+        if (delete > 0) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        return rd;
+    }
 }

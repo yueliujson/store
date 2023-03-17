@@ -53,4 +53,13 @@ public class ShoppingService implements ShoppingServiceDao {
         }
         return list;
     }
+
+    @Override
+    public int delete(int product_id, HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
+        String username = (String) stringObjectMap.get("username");
+        int user_id = userDao.getUserid(username);
+        return shoppingDao.delete(user_id,product_id);
+    }
 }

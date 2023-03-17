@@ -10,6 +10,11 @@
     <update id="updateCount">
         update shopping set count=#{count} where user_id=#{user_id} and product_id=#{product_id}
     </update>
+
+    <delete id="delete">
+        delete from shopping where product_id=#{product_id} and user_id=#{user_id}
+    </delete>
+
     <select id="isExist" resultType="com.easy.bean.Shopping">
         select `count` from shopping where user_id=#{user_id} and product_id=#{product_id}
     </select>

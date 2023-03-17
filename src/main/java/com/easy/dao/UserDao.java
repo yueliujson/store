@@ -26,7 +26,7 @@ public interface UserDao {
 
     int count(User user);
 
-    Integer getUserid(String username);
+    int getUserid(String username);
 
     User login(String username);
 }

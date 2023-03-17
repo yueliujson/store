@@ -9,4 +9,6 @@ public interface ShoppingServiceDao {
     int save(Shopping shopping, HttpServletRequest request);
 
     List<Shopping> list(HttpServletRequest request);
+
+    int delete(int id, HttpServletRequest request);
 }

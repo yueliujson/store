@@ -2,6 +2,8 @@ package com.easy.dao;
 
 import com.easy.bean.Shopping;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface ShoppingDao {
     Integer updateCount(Shopping shopping);
 
     List<Shopping> list(Integer user_id);
+
+    int delete(@Param("user_id") int user_id, @Param("product_id") int product_id);
 }
