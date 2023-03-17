@@ -44,6 +44,7 @@ public class UserController {
             LoginFilter.list.add(username);
             rd.put("token", token);
             rd.put("id",user.getUser_id());
+            rd.put("name",user.getName());
         } else {
             rd = new ResultData(401, "fail");
         }

@@ -33,17 +33,7 @@ public class ProductService implements ProductServiceDao {
     @Override
     public List<Product> list(Product item, PageInfo pageInfo) {
         List<Product> list = productDao.list(item,pageInfo);
-        if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                List<ProductImg> productImg = list.get(i).getProductImg();
-                if (productImg!=null){
-                    for (int j = 0; j < productImg.size(); j++) {
-                        productImg.get(j).setImgUrl("http://localhost/static/img/"+productImg.get(j).getImgUrl());
-                    }
-                }
-            }
-        }
-        return list;
+        return picturePath(list);
     }
 
     @Override
@@ -58,7 +48,22 @@ public class ProductService implements ProductServiceDao {
 
     @Override
     public List<Product> getParent(int id) {
-        return productDao.getParent(id);
+        List<Product> list = productDao.getParent(id);
+        return picturePath(list);
+    }
+
+    private List<Product> picturePath(List<Product> list) {
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                List<ProductImg> productImg = list.get(i).getProductImg();
+                if (productImg!=null){
+                    for (int j = 0; j < productImg.size(); j++) {
+                        productImg.get(j).setImgUrl("http://localhost/static/img/"+productImg.get(j).getImgUrl());
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     @Override

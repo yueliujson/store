@@ -86,7 +86,7 @@
         from productimg
         where product_id = #{product_id}
     </select>
-    <select id="getParent" resultType="com.easy.bean.Product">
+    <select id="getParent" resultMap="img">
         select product_id,
                name,
                price,
