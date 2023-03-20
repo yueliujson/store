@@ -9,6 +9,7 @@ import com.easy.utils.PageInfo;
 import com.easy.utils.SnowFlakeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -22,9 +23,15 @@ public class OrderFormService implements OrderFormServiceDao {
 
     @Autowired
     UserDao userDao;
+
     @Override
+    @Transactional
     public int save(OrderForm orderForm) {
         orderForm.setOrder_id("c" + snowFlakeUtils.nextId());
+        for (int i = 0; i < orderForm.getOrderFormDirs().size(); i++) {
+            orderForm.getOrderFormDirs().get(i).setOrder_id(orderForm.getOrder_id());
+            orderFormDao.saveOrderFormDir(orderForm.getOrderFormDirs().get(i));
+        }
         return orderFormDao.save(orderForm);
     }
 
@@ -50,7 +57,8 @@ public class OrderFormService implements OrderFormServiceDao {
 
     @Override
     public List<OrderForm> getList(OrderForm orderForm, PageInfo pageInfo) {
-        return orderFormDao.getList(orderForm,pageInfo);
+
+        return orderFormDao.getList(orderForm, pageInfo);
     }
 
     @Override
@@ -58,7 +66,7 @@ public class OrderFormService implements OrderFormServiceDao {
         String token = request.getHeader("token");
         Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
         String username = (String) stringObjectMap.get("username");
-        int user_id=userDao.getUserid(username);
-        return orderFormDao.getListPer(orderForm,pageInfo,user_id);
+        int user_id = userDao.getUserid(username);
+        return orderFormDao.getListPer(orderForm, pageInfo, user_id);
     }
 }

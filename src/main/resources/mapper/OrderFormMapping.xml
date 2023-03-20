@@ -8,69 +8,75 @@
         insert into orderform(order_id, user_id, money, address, phone, receiver, createtime)
         values (#{order_id}, #{user_id}, #{money}, #{address}, #{phone}, #{receiver}, now())
     </insert>
+    <insert id="saveOrderFormDir">
+        insert into orderformdir(order_id, product_id, count, price)
+        values (#{order_id}, #{product_id}, #{count}, #{price})
+    </insert>
+
     <update id="edit">
         update orderform
         set state=#{state}
-        <!--
-        <if test="paymentTime!=null">
-            ,paymenttime=#{paymentTime}
+        <if test="state=1">
+            ,paymenttime=now()
         </if>
-        <if test="sendTime!=null">
-            ,sendtime=#{sendTime}
+        <if test="state=3">
+            ,sendtime=now()
         </if>
-        <if test="finishTime!=null">
-            ,finishtime=#{finishTime}
+        <if test="state=4">
+            ,finishtime=now()
         </if>
-        -->
         where id = #{id}
     </update>
+
     <update id="delete">
         update orderform
         set isdel=1
         where id = #{id}
     </update>
     <select id="get" resultType="com.easy.bean.OrderForm">
-        select id,
-               order_id,
-               user_id,
-               money,
-               address,
-               phone,
-               receiver,
-               state,
-               createtime,
-               paymenttime,
-               sendtime,
-               finishtime,
-               isdel
-        from orderform
-        where id = #{id}
+        select o.id,
+               u.name,
+               o.order_id,
+               o.user_id,
+               o.money,
+               o.address,
+               o.phone,
+               o.receiver,
+               o.state,
+               o.createtime,
+               o.paymenttime,
+               o.sendtime,
+               o.finishtime,
+               o.isdel
+        from orderform o join user u on o.user_id=u.user_id
+        where o.id = #{id}
     </select>
     <select id="list" resultType="com.easy.bean.OrderForm">
-        select id,
-        order_id,
-        user_id,
-        money,
-        address,
-        phone,
-        receiver,
-        state,
-        createtime,
-        paymenttime,
-        sendtime,
-        finishtime,
-        isdel
-        from orderform
+        select o.id,
+        u.name,
+        o.order_id,
+        o.user_id,
+        o.money,
+        o.address,
+        o.phone,
+        o.receiver,
+        o.state,
+        o.createtime,
+        o.paymenttime,
+        o.sendtime,
+        o.finishtime,
+        o.isdel
+        from orderform o join user u on o.user_id=u.user_id
         <where>
             <if test="user_id!=null">
-                user_id = #{user_id}
+                o.user_id = #{user_id}
             </if>
             <if test="order_id!=null and order_id!=''">
-                order_id=#{order_id}
+                o.order_id=#{order_id}
             </if>
             <trim prefix="and">
                 <if test="state!=null">
-                    state=#{state}
+                    o.state=#{state}
                 </if>
             </trim>
         </where>
@@ -83,27 +89,28 @@
     </resultMap>
 
     <select id="getList" resultMap="getDir">
-        select id,
-        order_id,
-        user_id,
-        money,
-        address,
-        phone,
-        receiver,
-        state,
-        createtime,
-        paymenttime,
-        sendtime,
-        finishtime,
-        isdel
-        from orderform
+        select o.id,
+        u.name,
+        o.order_id,
+        o.user_id,
+        o.money,
+        o.address,
+        o.phone,
+        o.receiver,
+        o.state,
+        o.createtime,
+        o.paymenttime,
+        o.sendtime,
+        o.finishtime,
+        o.isdel
+        from orderform o join user u on o.user_id=u.user_id
         <where>
             <if test="orderForm.order_id!=null and orderForm.order_id!=''">
-                order_id=#{orderForm.order_id}
+                o.order_id=#{orderForm.order_id}
             </if>
             <trim prefix="and">
                 <if test="orderForm.state!=null">
-                    state=#{orderForm.state}
+                    o.state=#{orderForm.state}
                 </if>
             </trim>
         </where>
@@ -119,28 +126,29 @@
         where o.order_id = #{o.order_id}
     </select>
     <select id="getListPer" resultMap="getDir">
-        select id,
-        order_id,
-        user_id,
-        money,
-        address,
-        phone,
-        receiver,
-        state,
-        createtime,
-        paymenttime,
-        sendtime,
-        finishtime,
-        isdel
-        from orderform
-        where user_id = #{user_id}
-        and isdel=0
+        select o.id,
+        u.name,
+        o.order_id,
+        o.user_id,
+        o.money,
+        o.address,
+        o.phone,
+        o.receiver,
+        o.state,
+        o.createtime,
+        o.paymenttime,
+        o.sendtime,
+        o.finishtime,
+        o.isdel
+        from orderform o join user u on o.user_id=u.user_id
+        where o.user_id = #{user_id}
+        and o.isdel=0
         <trim prefix="and">
             <if test="orderForm.state!=null ">
-                state=#{orderForm.state}
+                o.state=#{orderForm.state}
             </if>
         </trim>
-        order by id desc
+        order by o.id desc
         <if test="pageInfo.limit!=0">
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>

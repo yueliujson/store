@@ -1,6 +1,7 @@
 package com.easy.dao;
 
 import com.easy.bean.OrderForm;
+import com.easy.bean.OrderFormDir;
 import com.easy.utils.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,4 +23,7 @@ public interface OrderFormDao {
     List<OrderForm> getList(@Param("orderForm") OrderForm orderForm,@Param("pageInfo") PageInfo pageInfo);
 
     List<OrderForm> getListPer(@Param("orderForm") OrderForm orderForm,@Param("pageInfo") PageInfo pageInfo,@Param("user_id") int user_id);
+
+    void saveOrderFormDir(OrderFormDir orderFormDir);
+
 }

@@ -17,6 +17,8 @@ public class OrderForm {
     private String order_id;
     /**用户id*/
     private Integer user_id;
+    /**姓名*/
+    private String name;
     /**支付金额*/
     private BigDecimal money;
     /**地址*/
@@ -40,12 +42,27 @@ public class OrderForm {
     /**详情*/
     private List<OrderFormDir> orderFormDirs;
 
+
+
+    public List<OrderFormDir> getOrderFormDirs() {
+        return orderFormDirs;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "OrderForm{" +
                 "id=" + id +
                 ", order_id='" + order_id + '\'' +
                 ", user_id=" + user_id +
+                ", name='" + name + '\'' +
                 ", money=" + money +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
@@ -60,8 +77,22 @@ public class OrderForm {
                 '}';
     }
 
-    public List<OrderFormDir> getOrderFormDirs() {
-        return orderFormDirs;
+    public OrderForm(Integer id, String order_id, Integer user_id, String name, BigDecimal money, String address, String phone, String receiver, Byte state, Timestamp createTime, Timestamp paymentTime, Timestamp sendTime, Timestamp finishTime, Byte isDel, List<OrderFormDir> orderFormDirs) {
+        this.id = id;
+        this.order_id = order_id;
+        this.user_id = user_id;
+        this.name = name;
+        this.money = money;
+        this.address = address;
+        this.phone = phone;
+        this.receiver = receiver;
+        this.state = state;
+        this.createTime = createTime;
+        this.paymentTime = paymentTime;
+        this.sendTime = sendTime;
+        this.finishTime = finishTime;
+        this.isDel = isDel;
+        this.orderFormDirs = orderFormDirs;
     }
 
     public void setOrderFormDirs(List<OrderFormDir> orderFormDirs) {
@@ -175,19 +206,5 @@ public class OrderForm {
         this.isDel = isDel;
     }
 
-    public OrderForm(Integer id, String order_id, Integer user_id, BigDecimal money, String address, String phone, String receiver, Byte state, Timestamp createTime, Timestamp paymentTime, Timestamp sendTime, Timestamp finishTime, Byte isDel) {
-        this.id = id;
-        this.order_id = order_id;
-        this.user_id = user_id;
-        this.money = money;
-        this.address = address;
-        this.phone = phone;
-        this.receiver = receiver;
-        this.state = state;
-        this.createTime = createTime;
-        this.paymentTime = paymentTime;
-        this.sendTime = sendTime;
-        this.finishTime = finishTime;
-        this.isDel = isDel;
-    }
+
 }
