@@ -10,9 +10,7 @@
     </insert>
     <update id="edit">
         update orderform
-        set address=#{address},
-        phone=#{phone},
-        receiver=#{receiver}
+        set state=#{state}
         <!--
         <if test="paymentTime!=null">
             ,paymenttime=#{paymentTime}
@@ -50,18 +48,18 @@
     </select>
     <select id="list" resultType="com.easy.bean.OrderForm">
         select id,
-               order_id,
-               user_id,
-               money,
-               address,
-               phone,
-               receiver,
-               state,
-               createtime,
-               paymenttime,
-               sendtime,
-               finishtime,
-               isdel
+        order_id,
+        user_id,
+        money,
+        address,
+        phone,
+        receiver,
+        state,
+        createtime,
+        paymenttime,
+        sendtime,
+        finishtime,
+        isdel
         from orderform
         <where>
             <if test="user_id!=null">
@@ -119,5 +117,32 @@
         from orderformdir o
                  join product p on o.product_id = p.product_id
         where o.order_id = #{o.order_id}
+    </select>
+    <select id="getListPer" resultMap="getDir">
+        select id,
+        order_id,
+        user_id,
+        money,
+        address,
+        phone,
+        receiver,
+        state,
+        createtime,
+        paymenttime,
+        sendtime,
+        finishtime,
+        isdel
+        from orderform
+        where user_id = #{user_id}
+        and isdel=0
+        <trim prefix="and">
+            <if test="orderForm.state!=null ">
+                state=#{orderForm.state}
+            </if>
+        </trim>
+        order by id desc
+        <if test="pageInfo.limit!=0">
+            limit #{pageInfo.start},#{pageInfo.limit}
+        </if>
     </select>
 </mapper>

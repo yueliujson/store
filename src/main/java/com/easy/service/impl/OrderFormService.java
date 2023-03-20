@@ -2,19 +2,26 @@ package com.easy.service.impl;
 
 import com.easy.bean.OrderForm;
 import com.easy.dao.OrderFormDao;
+import com.easy.dao.UserDao;
 import com.easy.service.OrderFormServiceDao;
+import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import com.easy.utils.SnowFlakeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderFormService implements OrderFormServiceDao {
     private SnowFlakeUtils snowFlakeUtils = new SnowFlakeUtils(0, 0);
     @Autowired
     OrderFormDao orderFormDao;
+
+    @Autowired
+    UserDao userDao;
     @Override
     public int save(OrderForm orderForm) {
         orderForm.setOrder_id("c" + snowFlakeUtils.nextId());
@@ -44,5 +51,14 @@ public class OrderFormService implements OrderFormServiceDao {
     @Override
     public List<OrderForm> getList(OrderForm orderForm, PageInfo pageInfo) {
         return orderFormDao.getList(orderForm,pageInfo);
+    }
+
+    @Override
+    public List<OrderForm> getListPer(OrderForm orderForm, PageInfo pageInfo, HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
+        String username = (String) stringObjectMap.get("username");
+        int user_id=userDao.getUserid(username);
+        return orderFormDao.getListPer(orderForm,pageInfo,user_id);
     }
 }

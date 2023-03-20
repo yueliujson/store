@@ -47,9 +47,7 @@ public class AddressController {
      */
     @GetMapping("/address")
     public ResultData list(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(Sys.LOGIN_NAME);
-        Integer user_id = user.getUser_id();
-        List<Address> list = addressServiceDao.list(user_id);
+        List<Address> list = addressServiceDao.list(request);
         ResultData rd = new ResultData(200, "success");
         rd.put("data", list);
         return rd;

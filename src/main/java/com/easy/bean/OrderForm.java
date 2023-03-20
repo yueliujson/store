@@ -40,6 +40,26 @@ public class OrderForm {
     /**详情*/
     private List<OrderFormDir> orderFormDirs;
 
+    @Override
+    public String toString() {
+        return "OrderForm{" +
+                "id=" + id +
+                ", order_id='" + order_id + '\'' +
+                ", user_id=" + user_id +
+                ", money=" + money +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", state=" + state +
+                ", createTime=" + createTime +
+                ", paymentTime=" + paymentTime +
+                ", sendTime=" + sendTime +
+                ", finishTime=" + finishTime +
+                ", isDel=" + isDel +
+                ", orderFormDirs=" + orderFormDirs +
+                '}';
+    }
+
     public List<OrderFormDir> getOrderFormDirs() {
         return orderFormDirs;
     }

@@ -47,6 +47,16 @@ public class OrderFormController {
         return rd;
     }
 
+    @GetMapping("/orderFormPer")
+    public ResultData listPer(OrderForm orderForm, PageInfo pageInfo,HttpServletRequest request) {
+        List<OrderForm> list ;
+        list = orderFormServiceDao.getListPer(orderForm, pageInfo,request);
+        ResultData rd = new ResultData(200, "success");
+        rd.put("data", list);
+        return rd;
+    }
+
+
     @PutMapping("/orderForm")
     public ResultData edit(@RequestBody OrderForm orderForm) {
         int edit = orderFormServiceDao.edit(orderForm);

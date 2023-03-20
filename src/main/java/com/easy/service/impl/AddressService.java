@@ -2,17 +2,22 @@ package com.easy.service.impl;
 
 import com.easy.bean.Address;
 import com.easy.dao.AddressDao;
+import com.easy.dao.UserDao;
 import com.easy.service.AddressServiceDao;
+import com.easy.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AddressService implements AddressServiceDao {
     @Autowired
     AddressDao addressDao;
-
+    @Autowired
+    UserDao userDao;
     @Override
     public int save(Address address) {
         return addressDao.save(address);
@@ -30,7 +35,11 @@ public class AddressService implements AddressServiceDao {
     }
 
     @Override
-    public List<Address> list(Integer user_id) {
+    public List<Address> list(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
+        String username = (String) stringObjectMap.get("username");
+        int user_id=userDao.getUserid(username);
         return addressDao.list(user_id);
     }
 

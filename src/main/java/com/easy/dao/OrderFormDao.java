@@ -20,4 +20,6 @@ public interface OrderFormDao {
     int delete(int id);
 
     List<OrderForm> getList(@Param("orderForm") OrderForm orderForm,@Param("pageInfo") PageInfo pageInfo);
+
+    List<OrderForm> getListPer(@Param("orderForm") OrderForm orderForm,@Param("pageInfo") PageInfo pageInfo,@Param("user_id") int user_id);
 }
