@@ -35,6 +35,8 @@ public class OrderForm {
     private Timestamp paymentTime;
     /**发货时间*/
     private Timestamp sendTime;
+    /**收货时间*/
+    private Timestamp receiveTime;
     /**完成时间*/
     private Timestamp finishTime;
     /**是否删除*/
@@ -77,7 +79,7 @@ public class OrderForm {
                 '}';
     }
 
-    public OrderForm(Integer id, String order_id, Integer user_id, String name, BigDecimal money, String address, String phone, String receiver, Byte state, Timestamp createTime, Timestamp paymentTime, Timestamp sendTime, Timestamp finishTime, Byte isDel, List<OrderFormDir> orderFormDirs) {
+    public OrderForm(Integer id, String order_id, Integer user_id, String name, BigDecimal money, String address, String phone, String receiver, Byte state, Timestamp createTime, Timestamp paymentTime, Timestamp sendTime, Timestamp receiveTime, Timestamp finishTime, Byte isDel, List<OrderFormDir> orderFormDirs) {
         this.id = id;
         this.order_id = order_id;
         this.user_id = user_id;
@@ -90,6 +92,7 @@ public class OrderForm {
         this.createTime = createTime;
         this.paymentTime = paymentTime;
         this.sendTime = sendTime;
+        this.receiveTime = receiveTime;
         this.finishTime = finishTime;
         this.isDel = isDel;
         this.orderFormDirs = orderFormDirs;
@@ -188,6 +191,14 @@ public class OrderForm {
 
     public void setSendTime(Timestamp sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public String getReceiveTime() {
+        return TimeFormat.getTime(receiveTime);
+    }
+
+    public void setReceiveTime(Timestamp receiveTime) {
+        this.receiveTime = receiveTime;
     }
 
     public String getFinishTime() {

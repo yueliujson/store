@@ -18,10 +18,38 @@ public class User {
     private Integer sex;
     /**电话*/
     private String phone;
+    /**邮箱*/
+    private String email;
     /**用户名*/
     private String username;
     /**密码*/
     private String userpass;
+    /**确认密码*/
+    private String newPass;
+
+    public String getNewPass() {
+        return newPass;
+    }
+
+    public void setNewPass(String newPass) {
+        this.newPass = newPass;
+    }
+
+    public User(Integer user_id, String name, Integer sex, String phone, String email, String username, String userpass, String newPass, Byte state, Byte isDel, Timestamp createTime, Timestamp lastLoginTime) {
+        this.user_id = user_id;
+        this.name = name;
+        this.sex = sex;
+        this.phone = phone;
+        this.email = email;
+        this.username = username;
+        this.userpass = userpass;
+        this.newPass = newPass;
+        this.state = state;
+        this.isDel = isDel;
+        this.createTime = createTime;
+        this.lastLoginTime = lastLoginTime;
+    }
+
     /**状态*/
     private Byte state;
     /**是否删除*/
@@ -31,17 +59,13 @@ public class User {
     /**最后登录时间*/
     private Timestamp lastLoginTime;
 
-    public User(Integer user_id, String name, Integer sex, String phone, String username, String userpass, Byte state, Byte isDel, Timestamp createTime, Timestamp lastLoginTime) {
-        this.user_id = user_id;
-        this.name = name;
-        this.sex = sex;
-        this.phone = phone;
-        this.username = username;
-        this.userpass = userpass;
-        this.state = state;
-        this.isDel = isDel;
-        this.createTime = createTime;
-        this.lastLoginTime = lastLoginTime;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public User() {
@@ -118,6 +142,7 @@ public class User {
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
+
 
     public String getLastLoginTime() {
         return TimeFormat.getTime(lastLoginTime);

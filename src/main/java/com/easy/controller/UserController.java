@@ -2,15 +2,17 @@ package com.easy.controller;
 
 import com.easy.bean.User;
 import com.easy.filter.LoginFilter;
+import com.easy.service.SendMailServiceDao;
 import com.easy.service.UserServiceDao;
+import com.easy.service.impl.SendMailServiceImpl;
 import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import com.easy.utils.ResultData;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,7 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserServiceDao userServiceDao;
+
 
     @RequestMapping("/exception")
     @ResponseBody
@@ -50,11 +53,31 @@ public class UserController {
         }
         return rd;
     }
+    private Map<String,String> map=new HashMap<>();
+
+    @GetMapping("/authCode/{email}")
+    public ResultData code(@PathVariable String email){
+        System.out.println(email);
+        SendMailServiceDao sendMailServiceDao=new SendMailServiceImpl();
+        String authCode="";
+        for (int i = 0; i < 6; i++) {
+            authCode+=(int)(Math.random()*10)+"";
+        }
+        map.put(email,authCode);
+        try {
+            sendMailServiceDao.sendQQEmail(email,authCode,"123");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ResultData rd = new ResultData(200, "success");
+        rd.put("authCode",authCode);
+        return rd;
+    }
 
     @GetMapping("/exit")
     public ResultData exit(HttpServletRequest request) {
         ResultData rd;
-        request.getSession().removeAttribute("token");
+        userServiceDao.exit(request);
         rd = new ResultData(200, "success");
         return rd;
     }
@@ -90,8 +113,8 @@ public class UserController {
     }
 
     @PutMapping("user")
-    public ResultData edit(@RequestBody User user) {
-        int edit = userServiceDao.edit(user);
+    public ResultData edit(@RequestBody User user, HttpServletRequest request) {
+        int edit = userServiceDao.edit(user,request);
         ResultData rd;
         if (edit >= 1) {
             rd = new ResultData(200, "success");
@@ -101,7 +124,7 @@ public class UserController {
         return rd;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/register")
     public ResultData save(@RequestBody User user) {
         int register = userServiceDao.save(user);
         ResultData rd;
@@ -132,7 +155,6 @@ public class UserController {
     @GetMapping("isLogin")
     public ResultData isLogin(HttpServletRequest request){
         String token = request.getHeader("token");
-        System.out.println(token);
         if (token==null){
             return new ResultData(202,"fail");
         }

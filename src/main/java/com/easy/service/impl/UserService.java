@@ -2,13 +2,17 @@ package com.easy.service.impl;
 
 import com.easy.bean.User;
 import com.easy.dao.UserDao;
+import com.easy.filter.LoginFilter;
 import com.easy.service.UserServiceDao;
+import com.easy.utils.JWTUtil;
 import com.easy.utils.MD5;
 import com.easy.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Service
@@ -39,6 +43,33 @@ public class UserService implements UserServiceDao {
     }
 
     @Override
+    public boolean exit(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> map = JWTUtil.decodeJWT(token);
+        String username = (String) map.get("username");
+        boolean remove = LoginFilter.list.remove(username);
+        return remove;
+    }
+
+    @Override
+    public int edit (User userA,HttpServletRequest request) {
+        String newPass = userA.getNewPass();
+        String password = userA.getUserpass();
+        String token = request.getHeader("token");
+        Map<String, Object> map = JWTUtil.decodeJWT(token);
+        String username = (String) map.get("username");
+        User user=userDao.login(username);
+        int edit=0;
+        if (user!=null){
+            if (MD5.equals(password,user.getUserpass())){
+                String s = MD5.MD5Hex(newPass);
+                edit=userDao.editPass(s,user.getUser_id());
+            }
+        }
+        return edit;
+    }
+
+    @Override
     public User get(int id) {
         return userDao.get(id);
     }
@@ -62,7 +93,7 @@ public class UserService implements UserServiceDao {
     public User login(String username, String password) {
         User user=userDao.login(username);
         if (user!=null){
-            if (!user.getUserpass().equals(password)){
+            if (!MD5.equals(password,user.getUserpass())){
                 return null;
             }
         }

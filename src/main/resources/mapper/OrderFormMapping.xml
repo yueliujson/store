@@ -16,13 +16,16 @@
     <update id="edit">
         update orderform
         set state=#{state}
-        <if test="state=1">
+        <if test="state==1">
             ,paymenttime=now()
         </if>
-        <if test="state=3">
+        <if test="state==2">
             ,sendtime=now()
         </if>
-        <if test="state=4">
+        <if test="state==3">
+            ,receivetime=now()
+        </if>
+        <if test="state==4">
             ,finishtime=now()
         </if>
         where id = #{id}
@@ -45,6 +48,7 @@
                o.state,
                o.createtime,
                o.paymenttime,
+               o.receivetime,
                o.sendtime,
                o.finishtime,
                o.isdel
@@ -63,6 +67,7 @@
         o.state,
         o.createtime,
         o.paymenttime,
+        o.receivetime,
         o.sendtime,
         o.finishtime,
         o.isdel
@@ -100,6 +105,7 @@
         o.state,
         o.createtime,
         o.paymenttime,
+        o.receivetime,
         o.sendtime,
         o.finishtime,
         o.isdel
@@ -137,6 +143,7 @@
         o.state,
         o.createtime,
         o.paymenttime,
+        o.receivetime,
         o.sendtime,
         o.finishtime,
         o.isdel

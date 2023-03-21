@@ -21,7 +21,6 @@ public class MD5 {
      * @param oldPass 数据库中的旧密码
      */
     public static boolean equals(String newPass, String oldPass) {
-        newPass = MD5Hex(newPass);
-        return newPass.equals(oldPass);
+        return  MD5Hex(newPass).equals(oldPass);
     }
 }

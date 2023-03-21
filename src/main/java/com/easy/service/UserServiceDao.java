@@ -3,6 +3,7 @@ package com.easy.service;
 import com.easy.bean.User;
 import com.easy.utils.PageInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserServiceDao {
@@ -21,4 +22,8 @@ public interface UserServiceDao {
     int saveUsers(List<User> user);
 
     int count(User user);
+
+    boolean exit(HttpServletRequest request);
+
+    int edit(User user, HttpServletRequest request);
 }

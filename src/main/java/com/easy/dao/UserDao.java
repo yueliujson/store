@@ -29,4 +29,6 @@ public interface UserDao {
     int getUserid(String username);
 
     User login(String username);
+
+    int editPass(@Param("newPass") String newPass,@Param("user_id") Integer user_id);
 }

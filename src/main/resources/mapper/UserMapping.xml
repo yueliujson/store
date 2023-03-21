@@ -8,8 +8,8 @@
 -->
 <mapper namespace="com.easy.dao.UserDao">
     <insert id="save">
-        insert into user(name, sex, phone, username, userpass, createtime)
-        values (#{name}, #{sex}, #{phone}, #{username}, #{userpass}, now())
+        insert into user(name, sex, phone, username, userpass,email, createtime)
+        values (#{name}, #{sex}, #{phone}, #{username}, #{userpass},#{email}, now())
     </insert>
 
     <insert id="saveUsers">
@@ -42,6 +42,9 @@
         set isdel=1
         where user_id = #{userId}
     </update>
+    <update id="editPass">
+        update user set userpass=#{newPass} where user_id=#{user_id}
+    </update>
 
     <select id="isExist" resultType="java.lang.Boolean">
         select count(*)
@@ -54,6 +57,7 @@
                name,
                sex,
                phone,
+               email,
                username,
                userpass,
                createtime,
@@ -65,7 +69,7 @@
     </select>
 
     <select id="list" resultType="com.easy.bean.User">
-        select user_id,name,sex,phone,username,userpass,createtime,state,isdel,lastlogintime from user
+        select user_id,name,sex,phone,username,email,userpass,createtime,state,isdel,lastlogintime from user
         <where>
             <if test="user.isDel!=null">
                 isdel=#{user.isDel}

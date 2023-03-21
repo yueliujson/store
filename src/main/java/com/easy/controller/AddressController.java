@@ -20,8 +20,8 @@ public class AddressController {
      * 储存地址
      */
     @PostMapping("/address")
-    public ResultData save(@RequestBody Address address) {
-        int save = addressServiceDao.save(address);
+    public ResultData save(@RequestBody Address address,HttpServletRequest request) {
+        int save = addressServiceDao.save(address,request);
         ResultData rd;
         if (save > 0) {
             rd = new ResultData(200, "success");

@@ -18,10 +18,18 @@ public class AddressService implements AddressServiceDao {
     AddressDao addressDao;
     @Autowired
     UserDao userDao;
-    @Override
-    public int save(Address address) {
-        return addressDao.save(address);
 
+    @Override
+    public int save(Address address, HttpServletRequest request) {
+        int user_id = getUser_id(request);
+        address.setUser_id(user_id);
+        List<Address> list = list(request);
+        int save=0;
+        if (list == null) {
+            address.setState((byte) 1);
+        }
+        save=addressDao.save(address);
+        return save;
     }
 
     @Override
@@ -36,10 +44,7 @@ public class AddressService implements AddressServiceDao {
 
     @Override
     public List<Address> list(HttpServletRequest request) {
-        String token = request.getHeader("token");
-        Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
-        String username = (String) stringObjectMap.get("username");
-        int user_id=userDao.getUserid(username);
+        int user_id = getUser_id(request);
         return addressDao.list(user_id);
     }
 
@@ -48,4 +53,11 @@ public class AddressService implements AddressServiceDao {
         return addressDao.edit(address);
     }
 
+    private int getUser_id(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
+        String username = (String) stringObjectMap.get("username");
+        int userid = userDao.getUserid(username);
+        return userid;
+    }
 }

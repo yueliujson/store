@@ -5,8 +5,8 @@
 <mapper namespace="com.easy.dao.AddressDao">
 
     <insert id="save">
-        insert into address(user_id, province, city, area, address, phone, receiver, createtime, lastedittime)
-        values (#{user_id}, #{province}, #{city}, #{area}, #{address}, #{phone}, #{receiver}, now(), now())
+        insert into address(user_id, province, city, area, address, phone, receiver, state, createtime, lastedittime)
+        values (#{user_id}, #{province}, #{city}, #{area}, #{address}, #{phone}, #{receiver}, #{state}, now(), now())
     </insert>
     <update id="delete">
         update address
@@ -58,6 +58,6 @@
                createtime,
                lastedittime
         from address
-        where user_id = #{user_id}
+        where user_id = #{user_id} and isdel=0
     </select>
 </mapper>

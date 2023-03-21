@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface AddressServiceDao {
-    int save(Address address);
+    int save(Address address, HttpServletRequest request);
 
     Address get(int id);
 
