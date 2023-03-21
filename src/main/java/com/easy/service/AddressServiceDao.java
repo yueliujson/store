@@ -14,5 +14,5 @@ public interface AddressServiceDao {
 
     List<Address> list(HttpServletRequest request);
 
-    int edit(Address address);
+    int edit(Address address, HttpServletRequest request);
 }

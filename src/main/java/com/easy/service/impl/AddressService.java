@@ -49,7 +49,11 @@ public class AddressService implements AddressServiceDao {
     }
 
     @Override
-    public int edit(Address address) {
+    public int edit(Address address, HttpServletRequest request) {
+        if(address.getState()!=null){
+            int user_id = getUser_id(request);
+            addressDao.setDefaultNo(user_id);
+        }
         return addressDao.edit(address);
     }
 

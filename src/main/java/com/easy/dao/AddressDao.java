@@ -16,4 +16,6 @@ public interface AddressDao {
     List<Address> list(Integer user_id);
 
     int edit(Address address);
+
+    void setDefaultNo(int user_id);
 }

@@ -47,8 +47,8 @@ public class ProductService implements ProductServiceDao {
     }
 
     @Override
-    public List<Product> getParent(int id) {
-        List<Product> list = productDao.getParent(id);
+    public List<Product> getParent(int id, PageInfo pageInfo) {
+        List<Product> list = productDao.getParent(id,pageInfo);
         return picturePath(list);
     }
 

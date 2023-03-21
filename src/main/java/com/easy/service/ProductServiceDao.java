@@ -20,7 +20,7 @@ public interface ProductServiceDao {
 
     int count(int id);
 
-    List<Product> getParent(int id);
+    List<Product> getParent(int id, PageInfo pageInfo);
 
     int editState(Product product);
 }

@@ -15,16 +15,31 @@
     </update>
     <update id="edit">
         update address
-        set province=#{province},
+        set
+        <if test="province!=null">
+            province=#{province},
             city=#{city},
             area=#{area},
             address=#{address},
+        </if>
+        <if test="phone!=null">
             phone=#{phone},
+        </if>
+        <if test="receiver!=null">
             receiver=#{receiver},
+        </if>
+        <if test="state!=null">
             state=#{state},
+        </if>
+        <if test="isDel!=null">
             isdel=#{isDel},
-            lastedittime=now()
+        </if>
+        lastedittime=now()
         where id = #{id}
+    </update>
+
+    <update id="setDefaultNo">
+        update address set state=0 where user_id=#{user_id}
     </update>
 
     <select id="get" resultType="com.easy.bean.Address">
@@ -58,6 +73,7 @@
                createtime,
                lastedittime
         from address
-        where user_id = #{user_id} and isdel=0
+        where user_id = #{user_id}
+          and isdel = 0
     </select>
 </mapper>

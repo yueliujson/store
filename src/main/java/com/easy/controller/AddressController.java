@@ -72,8 +72,8 @@ public class AddressController {
      * 修改
      */
     @PutMapping("/address")
-    public ResultData edit(@RequestBody Address address) {
-        int edit = addressServiceDao.edit(address);
+    public ResultData edit(@RequestBody Address address,HttpServletRequest request) {
+        int edit = addressServiceDao.edit(address,request);
         ResultData rd;
         if (edit > 0) {
             rd = new ResultData(200, "success");

@@ -21,7 +21,7 @@ public interface ProductDao {
 
     int count(Product product);
 
-    List<Product> getParent(int id);
+    List<Product> getParent(@Param("id") int id,@Param("pageInfo") PageInfo pageInfo);
 
     int getCount(int id);
 

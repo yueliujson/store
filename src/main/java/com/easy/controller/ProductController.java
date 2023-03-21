@@ -40,8 +40,8 @@ public class ProductController {
     }
 
     @GetMapping("/productParent/{id}")
-    public ResultData getParent(@PathVariable int id) {
-        List<Product> product = productServiceDao.getParent(id);
+    public ResultData getParent(@PathVariable int id,PageInfo pageInfo) {
+        List<Product> product = productServiceDao.getParent(id,pageInfo);
         int count=productServiceDao.count(id);
         ResultData rd = new ResultData(200, "success");
         rd.put("data", product);

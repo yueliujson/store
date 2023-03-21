@@ -28,7 +28,9 @@
         where product_id = #{product_id}
     </update>
     <update id="editState">
-        update product set state=#{state} where product_id=#{product_id}
+        update product
+        set state=#{state}
+        where product_id = #{product_id}
     </update>
 
     <select id="get" resultType="com.easy.bean.Product">
@@ -56,9 +58,11 @@
                 <bind name="likeName" value="'%'+item.name+'%'"/>
                 name like #{likeName}
             </if>
-            <if test="item.state!=null and item.state!='' ">
-                state=#{item.state}
-            </if>
+            <trim prefix="and">
+                <if test="item.state!=null and item.state!='' ">
+                    state=#{item.state}
+                </if>
+            </trim>
         </where>
         <if test="pageInfo.limit!=0">
             limit #{pageInfo.start},#{pageInfo.limit}
@@ -88,19 +92,22 @@
     </select>
     <select id="getParent" resultMap="img">
         select product_id,
-               name,
-               price,
-               old_price,
-               info,
-               count,
-               type_id,
-               state,
-               isdel,
-               createtime,
-               creator,
-               lastedittime
+        name,
+        price,
+        old_price,
+        info,
+        count,
+        type_id,
+        state,
+        isdel,
+        createtime,
+        creator,
+        lastedittime
         from product
         where type_id = #{id}
+        <if test="pageInfo.limit!=0">
+            limit #{pageInfo.start},#{pageInfo.limit}
+        </if>
     </select>
     <select id="getCount" resultType="java.lang.Integer">
         select count(*)
