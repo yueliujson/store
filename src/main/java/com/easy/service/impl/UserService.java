@@ -80,6 +80,13 @@ public class UserService implements UserServiceDao {
     }
 
     @Override
+    public int adduser(User user) {
+        String password = MD5.MD5Hex("000000");
+        user.setUserpass(password);
+        return userDao.adduser(user);
+    }
+
+    @Override
     public User get(int id) {
         return userDao.get(id);
     }

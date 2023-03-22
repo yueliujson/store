@@ -55,6 +55,9 @@ public class UserController {
         }
         return rd;
     }
+
+
+
     private Map<String,String> map=new HashMap<>();
     public static Map<String, Date> time=new HashMap<>();
 
@@ -127,6 +130,18 @@ public class UserController {
         return rd;
     }
 
+    @PutMapping("usermessage")
+    public ResultData edit(@RequestBody User user) {
+        int edit = userServiceDao.edit(user);
+        ResultData rd;
+        if (edit >= 1) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        return rd;
+    }
+
     @PostMapping("/register")
     public ResultData save(@RequestBody User user) {
         int register = userServiceDao.save(user);
@@ -140,6 +155,18 @@ public class UserController {
         return rd;
     }
 
+    @PostMapping("/adduser")
+    public ResultData adduser(@RequestBody User user) {
+        int register = userServiceDao.adduser(user);
+        ResultData rd;
+        if (register > 0) {
+            rd = new ResultData(200, "success");
+        } else {
+            rd = new ResultData(202, "fail");
+        }
+        rd.put("data", user);
+        return rd;
+    }
 
     @PostMapping("/users")
     public ResultData save(@RequestBody List<User> user) {

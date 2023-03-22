@@ -8,8 +8,8 @@
 -->
 <mapper namespace="com.easy.dao.UserDao">
     <insert id="save">
-        insert into user(name, sex, phone, username, userpass,email, createtime)
-        values (#{name}, #{sex}, #{phone}, #{username}, #{userpass},#{email}, now())
+        insert into user(name, sex, phone, username, userpass, email, createtime)
+        values (#{name}, #{sex}, #{phone}, #{username}, #{userpass}, #{email}, now())
     </insert>
 
     <insert id="saveUsers">
@@ -19,6 +19,11 @@
         <foreach collection="user" separator="," close="" item="item">
             (#{item.name},#{item.sex},#{item.phone},#{item.username},#{item.userpass},now())
         </foreach>
+    </insert>
+
+    <insert id="adduser">
+        insert into user(name, sex, phone, username, userpass,state, email, createtime)
+        values (#{name}, #{sex}, #{phone}, #{username}, #{userpass},#{state}, #{email}, now())
     </insert>
 
     <update id="edit">
@@ -42,12 +47,17 @@
         set isdel=1
         where user_id = #{userId}
     </update>
+
     <update id="editPass">
-        update user set userpass=#{newPass} where user_id=#{user_id}
+        update user
+        set userpass=#{newPass}
+        where user_id = #{user_id}
     </update>
 
     <update id="setLastLoginTime">
-        update user set lastlogintime=now() where user_i#{user_id}
+        update user
+        set lastlogintime=now()
+        where user_id = #{user_id}
     </update>
 
     <select id="isExist" resultType="java.lang.Boolean">
@@ -75,9 +85,12 @@
     <select id="list" resultType="com.easy.bean.User">
         select user_id,name,sex,phone,username,email,userpass,createtime,state,isdel,lastlogintime from user
         <where>
-            <if test="user.isDel!=null">
-                isdel=#{user.isDel}
-            </if>
+            state =#{user.state}
+            <trim prefix="and">
+                <if test="user.isDel!=null">
+                    isdel=#{user.isDel}
+                </if>
+            </trim>
             <!--    where 标签相当于一个where语句
                     当where中生成了语句，那么sql中就会添加where语句
                     如果where中没有生成任何sql语句，sql就不会添加where语句 -->
@@ -119,10 +132,16 @@
         </where>
     </select>
     <select id="getUserid" resultType="java.lang.Integer">
-        select user_id from user where username=#{username}
+        select user_id
+        from user
+        where username = #{username}
     </select>
+
     <select id="login" resultType="com.easy.bean.User">
-        select user_id,name,username,userpass,state from user where username=#{username} and isdel=0
+        select user_id, name, username, userpass, state
+        from user
+        where username = #{username}
+          and isdel = 0
     </select>
 
 </mapper>

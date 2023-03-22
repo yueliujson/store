@@ -29,4 +29,5 @@ public interface UserServiceDao {
 
     void setLastLoginTime(Integer user_id);
 
+    int adduser(User user);
 }

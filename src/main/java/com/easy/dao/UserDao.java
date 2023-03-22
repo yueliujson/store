@@ -33,4 +33,6 @@ public interface UserDao {
     int editPass(@Param("newPass") String newPass,@Param("user_id") Integer user_id);
 
     void setLastLoginTime(Integer user_id);
+
+    int adduser(User user);
 }
