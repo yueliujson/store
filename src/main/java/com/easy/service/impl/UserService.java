@@ -1,6 +1,7 @@
 package com.easy.service.impl;
 
 import com.easy.bean.User;
+import com.easy.controller.UserController;
 import com.easy.dao.UserDao;
 import com.easy.filter.LoginFilter;
 import com.easy.service.UserServiceDao;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +26,12 @@ public class UserService implements UserServiceDao {
 
     @Override
     public int save(User user) {
-        if (!userDao.isExist(user)) {
-            user.setUserpass(MD5.MD5Hex(user.getUserpass()));
-            return userDao.save(user);
+        Date date = UserController.time.get(user.getEmail());
+        if (new Date().getTime() - date.getTime() < 100 * 60) {
+            if (!userDao.isExist(user)) {
+                user.setUserpass(MD5.MD5Hex(user.getUserpass()));
+                return userDao.save(user);
+            }
         }
         return 0;
     }
@@ -52,18 +57,18 @@ public class UserService implements UserServiceDao {
     }
 
     @Override
-    public int edit (User userA,HttpServletRequest request) {
+    public int edit(User userA, HttpServletRequest request) {
         String newPass = userA.getNewPass();
         String password = userA.getUserpass();
         String token = request.getHeader("token");
         Map<String, Object> map = JWTUtil.decodeJWT(token);
         String username = (String) map.get("username");
-        User user=userDao.login(username);
-        int edit=0;
-        if (user!=null){
-            if (MD5.equals(password,user.getUserpass())){
+        User user = userDao.login(username);
+        int edit = 0;
+        if (user != null) {
+            if (MD5.equals(password, user.getUserpass())) {
                 String s = MD5.MD5Hex(newPass);
-                edit=userDao.editPass(s,user.getUser_id());
+                edit = userDao.editPass(s, user.getUser_id());
             }
         }
         return edit;
@@ -76,7 +81,7 @@ public class UserService implements UserServiceDao {
 
     @Override
     public List<User> list(User item, PageInfo pageInfo) {
-        return userDao.list(item,pageInfo);
+        return userDao.list(item, pageInfo);
     }
 
     @Override
@@ -91,9 +96,9 @@ public class UserService implements UserServiceDao {
 
 
     public User login(String username, String password) {
-        User user=userDao.login(username);
-        if (user!=null){
-            if (!MD5.equals(password,user.getUserpass())){
+        User user = userDao.login(username);
+        if (user != null) {
+            if (!MD5.equals(password, user.getUserpass())) {
                 return null;
             }
         }

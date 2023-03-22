@@ -8,11 +8,11 @@ import com.easy.service.impl.SendMailServiceImpl;
 import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import com.easy.utils.ResultData;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,16 +54,16 @@ public class UserController {
         return rd;
     }
     private Map<String,String> map=new HashMap<>();
-
+    public static Map<String, Date> time=new HashMap<>();
     @GetMapping("/authCode/{email}")
     public ResultData code(@PathVariable String email){
-        System.out.println(email);
         SendMailServiceDao sendMailServiceDao=new SendMailServiceImpl();
         String authCode="";
         for (int i = 0; i < 6; i++) {
             authCode+=(int)(Math.random()*10)+"";
         }
         map.put(email,authCode);
+        time.put(email,new Date());
         try {
             sendMailServiceDao.sendQQEmail(email,authCode,"123");
         } catch (Exception e) {
