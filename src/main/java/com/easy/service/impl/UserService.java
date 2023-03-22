@@ -27,7 +27,7 @@ public class UserService implements UserServiceDao {
     @Override
     public int save(User user) {
         Date date = UserController.time.get(user.getEmail());
-        if (new Date().getTime() - date.getTime() < 100 * 60) {
+        if (new Date().getTime() - date.getTime() < 1000 * 60) {
             if (!userDao.isExist(user)) {
                 user.setUserpass(MD5.MD5Hex(user.getUserpass()));
                 return userDao.save(user);
