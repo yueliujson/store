@@ -36,6 +36,7 @@
         set isdel=1
         where id = #{id}
     </update>
+
     <select id="get" resultType="com.easy.bean.OrderForm">
         select o.id,
                u.name,
@@ -52,9 +53,11 @@
                o.sendtime,
                o.finishtime,
                o.isdel
-        from orderform o join user u on o.user_id=u.user_id
+        from orderform o
+                 join user u on o.user_id = u.user_id
         where o.id = #{id}
     </select>
+
     <select id="list" resultType="com.easy.bean.OrderForm">
         select o.id,
         u.name,
@@ -85,6 +88,7 @@
                 </if>
             </trim>
         </where>
+        order by o.id desc
     </select>
 
 
@@ -120,6 +124,7 @@
                 </if>
             </trim>
         </where>
+        order by o.id desc
         <if test="pageInfo.start!=null">
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>

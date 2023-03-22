@@ -46,6 +46,10 @@
         update user set userpass=#{newPass} where user_id=#{user_id}
     </update>
 
+    <update id="setLastLoginTime">
+        update user set lastlogintime=now() where user_i#{user_id}
+    </update>
+
     <select id="isExist" resultType="java.lang.Boolean">
         select count(*)
         from user
@@ -118,7 +122,7 @@
         select user_id from user where username=#{username}
     </select>
     <select id="login" resultType="com.easy.bean.User">
-        select user_id,name,username,userpass from user where username=#{username} and isdel=0
+        select user_id,name,username,userpass,state from user where username=#{username} and isdel=0
     </select>
 
 </mapper>

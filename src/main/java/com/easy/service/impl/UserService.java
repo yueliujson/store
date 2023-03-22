@@ -75,6 +75,11 @@ public class UserService implements UserServiceDao {
     }
 
     @Override
+    public void setLastLoginTime(Integer user_id) {
+        userDao.setLastLoginTime(user_id);
+    }
+
+    @Override
     public User get(int id) {
         return userDao.get(id);
     }

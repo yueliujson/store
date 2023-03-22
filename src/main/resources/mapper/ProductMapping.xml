@@ -6,11 +6,25 @@
 <mapper namespace="com.easy.dao.ProductDao">
     <update id="edit">
         update product
-        set name=#{name},
-            price=#{price},
-            old_price=#{old_price},
-            info=#{info},
-            count=#{count},
+        set
+            <if test="name!=null">
+                name=#{name},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="old_price!=null">
+                old_price=#{old_price},
+            </if>
+            <if test="info!=null">
+                info=#{info},
+            </if>
+            <if test="count!=null">
+                count=#{count},
+            </if>
+            <if test="isDel!=null">
+                isdel=#{isDel},
+            </if>
             lastedittime=now()
         where product_id = #{product_id}
     </update>
@@ -59,6 +73,11 @@
                 name like #{likeName}
             </if>
             <trim prefix="and">
+                <if test="item.isDel!=null and item.isDel!='' ">
+                    isdel=#{item.isDel}
+                </if>
+            </trim>
+            <trim prefix="and">
                 <if test="item.state!=null and item.state!='' ">
                     state=#{item.state}
                 </if>
@@ -77,6 +96,9 @@
                 <bind name="likeName" value="'%'+name+'%'"/>
                 name like #{likeName}
             </if>
+            <if test="isDel!=null">
+                isdel=#{isDel}
+            </if>
         </where>
     </select>
 
@@ -90,6 +112,7 @@
         from productimg
         where product_id = #{product_id}
     </select>
+
     <select id="getParent" resultMap="img">
         select product_id,
         name,
@@ -105,14 +128,17 @@
         lastedittime
         from product
         where type_id = #{id}
+        and isdel=0
         <if test="pageInfo.limit!=0">
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>
     </select>
+
     <select id="getCount" resultType="java.lang.Integer">
         select count(*)
         from product
         where type_id = #{id}
+          and isdel = 0
     </select>
 
 

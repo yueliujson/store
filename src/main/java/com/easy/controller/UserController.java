@@ -48,6 +48,8 @@ public class UserController {
             rd.put("token", token);
             rd.put("id",user.getUser_id());
             rd.put("name",user.getName());
+            rd.put("state",user.getState());
+            userServiceDao.setLastLoginTime(user.getUser_id());
         } else {
             rd = new ResultData(401, "fail");
         }
@@ -55,6 +57,7 @@ public class UserController {
     }
     private Map<String,String> map=new HashMap<>();
     public static Map<String, Date> time=new HashMap<>();
+
     @GetMapping("/authCode/{email}")
     public ResultData code(@PathVariable String email){
         SendMailServiceDao sendMailServiceDao=new SendMailServiceImpl();

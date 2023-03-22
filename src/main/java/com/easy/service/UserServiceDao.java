@@ -26,4 +26,7 @@ public interface UserServiceDao {
     boolean exit(HttpServletRequest request);
 
     int edit(User user, HttpServletRequest request);
+
+    void setLastLoginTime(Integer user_id);
+
 }
