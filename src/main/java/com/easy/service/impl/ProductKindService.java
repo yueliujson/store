@@ -1,6 +1,7 @@
 package com.easy.service.impl;
 
 import com.easy.bean.ProductKind;
+import com.easy.dao.ProductDao;
 import com.easy.dao.ProductKindDao;
 import com.easy.dao.UserDao;
 import com.easy.service.ProductKindServiceDao;
@@ -8,6 +9,7 @@ import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,7 +32,9 @@ public class ProductKindService implements ProductKindServiceDao {
     }
 
     @Override
+    @Transactional
     public int delete(int id) {
+        productKindDao.deleteChild(id);
         return productKindDao.delete(id);
     }
 

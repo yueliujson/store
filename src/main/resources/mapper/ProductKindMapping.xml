@@ -32,6 +32,9 @@
             state=0
         where id = #{id}
     </update>
+    <update id="deleteChild">
+        update product set isdel=1 where type_id=#{id}
+    </update>
 
     <resultMap id="getChild" type="com.easy.bean.ProductKind">
         <result column="id" property="id"/>

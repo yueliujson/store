@@ -22,4 +22,6 @@ public interface ProductKindDao {
     List<ProductKind> getChildList(@Param("id") int id,@Param("page") PageInfo page);
 
     int count(ProductKind productKind);
+
+    void deleteChild(int id);
 }
