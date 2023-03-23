@@ -7,6 +7,7 @@ import com.easy.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -38,8 +39,8 @@ public class ProductKindController {
     }
 
     @PostMapping("productKind")
-    public ResultData save(@RequestBody ProductKind productKind){
-        int save = productKindServiceDao.save(productKind);
+    public ResultData save(@RequestBody ProductKind productKind, HttpServletRequest request){
+        int save = productKindServiceDao.save(productKind,request);
         ResultData rd;
         if (save>0) {
             rd = new ResultData(200, "success");

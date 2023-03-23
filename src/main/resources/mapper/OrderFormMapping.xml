@@ -165,4 +165,16 @@
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>
     </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from orderform o join user u on o.user_id=u.user_id
+        where o.user_id = #{user_id}
+        and o.isdel=0
+        <trim prefix="and">
+            <if test="state!=null ">
+                o.state=#{state}
+            </if>
+        </trim>
+        order by o.id desc
+    </select>
 </mapper>

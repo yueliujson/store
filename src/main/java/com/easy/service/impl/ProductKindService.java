@@ -2,18 +2,23 @@ package com.easy.service.impl;
 
 import com.easy.bean.ProductKind;
 import com.easy.dao.ProductKindDao;
+import com.easy.dao.UserDao;
 import com.easy.service.ProductKindServiceDao;
+import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductKindService implements ProductKindServiceDao {
     @Autowired
     ProductKindDao productKindDao;
-
+    @Autowired
+    UserDao userDao;
     @Override
     public ProductKind get(int id) {
         return productKindDao.get(id);
@@ -36,7 +41,12 @@ public class ProductKindService implements ProductKindServiceDao {
     }
 
     @Override
-    public int save(ProductKind item) {
+    public int save(ProductKind item, HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> map = JWTUtil.decodeJWT(token);
+        String username = (String) map.get("username");
+        String name=userDao.getName(username);
+        item.setCreator(name);
         return productKindDao.save(item);
     }
 

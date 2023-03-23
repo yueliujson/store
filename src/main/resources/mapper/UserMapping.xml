@@ -60,7 +60,7 @@
         where user_id = #{user_id}
     </update>
 
-    <select id="isExist" resultType="java.lang.Boolean">
+    <select id="isExist" resultType="java.lang.Integer">
         select count(*)
         from user
         where username = #{username}
@@ -142,6 +142,9 @@
         from user
         where username = #{username}
           and isdel = 0
+    </select>
+    <select id="getName" resultType="java.lang.String">
+        select name from user where username=#{username}
     </select>
 
 </mapper>

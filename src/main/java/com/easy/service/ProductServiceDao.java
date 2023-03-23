@@ -3,6 +3,7 @@ package com.easy.service;
 import com.easy.bean.Product;
 import com.easy.utils.PageInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ProductServiceDao {
@@ -14,7 +15,7 @@ public interface ProductServiceDao {
 
     int edit(Product item);
 
-    int save(Product item);
+    int save(Product item, HttpServletRequest request);
 
     int count(Product product);
 

@@ -51,8 +51,10 @@ public class OrderFormController {
     public ResultData listPer(OrderForm orderForm, PageInfo pageInfo,HttpServletRequest request) {
         List<OrderForm> list ;
         list = orderFormServiceDao.getListPer(orderForm, pageInfo,request);
+        int count=orderFormServiceDao.count(orderForm);
         ResultData rd = new ResultData(200, "success");
         rd.put("data", list);
+        rd.put("count",count);
         return rd;
     }
 

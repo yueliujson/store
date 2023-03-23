@@ -69,4 +69,9 @@ public class OrderFormService implements OrderFormServiceDao {
         int user_id = userDao.getUserid(username);
         return orderFormDao.getListPer(orderForm, pageInfo, user_id);
     }
+
+    @Override
+    public int count(OrderForm orderForm) {
+        return orderFormDao.count(orderForm);
+    }
 }

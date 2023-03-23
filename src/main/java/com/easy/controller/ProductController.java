@@ -5,9 +5,11 @@ import com.easy.bean.Product;
 import com.easy.service.ProductServiceDao;
 import com.easy.utils.PageInfo;
 import com.easy.utils.ResultData;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -40,7 +42,8 @@ public class ProductController {
     }
 
     @GetMapping("/productParent/{id}")
-    public ResultData getParent(@PathVariable int id,PageInfo pageInfo) {
+    public ResultData getParent(@PathVariable int id,@RequestBody PageInfo pageInfo) {
+        System.out.println(pageInfo);
         List<Product> product = productServiceDao.getParent(id,pageInfo);
         int count=productServiceDao.count(id);
         ResultData rd = new ResultData(200, "success");
@@ -53,8 +56,8 @@ public class ProductController {
      * 添加商品
      */
     @PostMapping("product")
-    public ResultData save(@RequestBody Product product) {
-        int save = productServiceDao.save(product);
+    public ResultData save(@RequestBody Product product, HttpServletRequest request) {
+        int save = productServiceDao.save(product,request);
         ResultData rd;
         if (save > 0) {
             rd = new ResultData(200, "success");

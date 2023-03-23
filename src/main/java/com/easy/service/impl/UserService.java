@@ -28,7 +28,7 @@ public class UserService implements UserServiceDao {
     public int save(User user) {
         Date date = UserController.time.get(user.getEmail());
         if (new Date().getTime() - date.getTime() < 1000 * 60) {
-            if (!userDao.isExist(user)) {
+            if (userDao.isExist(user)==0) {
                 user.setUserpass(MD5.MD5Hex(user.getUserpass()));
                 return userDao.save(user);
             }
@@ -83,7 +83,11 @@ public class UserService implements UserServiceDao {
     public int adduser(User user) {
         String password = MD5.MD5Hex("000000");
         user.setUserpass(password);
-        return userDao.adduser(user);
+        int save=0;
+        if (userDao.isExist(user)==0) {
+            save=userDao.adduser(user);
+        }
+        return save;
     }
 
     @Override

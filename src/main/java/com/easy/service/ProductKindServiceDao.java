@@ -3,6 +3,7 @@ package com.easy.service;
 import com.easy.bean.ProductKind;
 import com.easy.utils.PageInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ProductKindServiceDao {
@@ -14,7 +15,7 @@ public interface ProductKindServiceDao {
 
     int edit(ProductKind item);
 
-    int save(ProductKind item);
+    int save(ProductKind item, HttpServletRequest request);
 
     List<ProductKind> getChild(int id, PageInfo pageInfo);
 

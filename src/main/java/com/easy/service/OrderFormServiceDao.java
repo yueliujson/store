@@ -20,4 +20,7 @@ public interface OrderFormServiceDao {
     List<OrderForm> getList(OrderForm orderForm, PageInfo pageInfo);
 
     List<OrderForm> getListPer(OrderForm orderForm, PageInfo pageInfo, HttpServletRequest request);
+
+    int count(OrderForm orderForm);
+
 }

@@ -12,7 +12,7 @@ public interface UserDao {
 
     int save(User user);
 
-    boolean isExist(User user);
+    int isExist(User user);
 
     User get(int id);
 
@@ -35,4 +35,6 @@ public interface UserDao {
     void setLastLoginTime(Integer user_id);
 
     int adduser(User user);
+
+    String getName(String username);
 }

@@ -26,4 +26,5 @@ public interface OrderFormDao {
 
     void saveOrderFormDir(OrderFormDir orderFormDir);
 
+    int count(OrderForm orderForm);
 }

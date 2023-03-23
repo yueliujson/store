@@ -53,6 +53,7 @@ public class AddressService implements AddressServiceDao {
         if(address.getState()!=null){
             int user_id = getUser_id(request);
             addressDao.setDefaultNo(user_id);
+            address.setState((byte)1);
         }
         return addressDao.edit(address);
     }

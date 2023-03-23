@@ -3,12 +3,16 @@ package com.easy.service.impl;
 import com.easy.bean.Product;
 import com.easy.bean.ProductImg;
 import com.easy.dao.ProductDao;
+import com.easy.dao.UserDao;
 import com.easy.service.ProductServiceDao;
+import com.easy.utils.JWTUtil;
 import com.easy.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品Service
@@ -18,7 +22,8 @@ public class ProductService implements ProductServiceDao {
 
     @Autowired
     ProductDao productDao;
-
+    @Autowired
+    UserDao userDao;
     /**
      * 根据id获取商品
      */
@@ -95,7 +100,12 @@ public class ProductService implements ProductServiceDao {
      * 添加商品
      */
     @Override
-    public int save(Product item) {
+    public int save(Product item, HttpServletRequest request) {
+        String token = request.getHeader("token");
+        Map<String, Object> map = JWTUtil.decodeJWT(token);
+        String username = (String) map.get("username");
+        String name=userDao.getName(username);
+        item.setCreator(name);
         return productDao.save(item);
     }
 
