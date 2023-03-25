@@ -1,6 +1,5 @@
 package com.easy.filter;
 
-import com.easy.bean.User;
 import com.easy.utils.JWTUtil;
 
 import javax.servlet.*;
