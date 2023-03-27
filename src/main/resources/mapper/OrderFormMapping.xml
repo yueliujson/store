@@ -165,6 +165,7 @@
             limit #{pageInfo.start},#{pageInfo.limit}
         </if>
     </select>
+
     <select id="count" resultType="java.lang.Integer">
         select count(*)
         from orderform o join user u on o.user_id=u.user_id
