@@ -19,19 +19,23 @@ public class ShoppingService implements ShoppingServiceDao {
 
     @Autowired
     UserDao userDao;
+
     @Override
     public int save(Shopping shopping, HttpServletRequest request) {
         String token = request.getHeader("token");
         Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
         String username = (String) stringObjectMap.get("username");
         shopping.setUser_id(userDao.getUserid(username));
-        Shopping isExist=shoppingDao.isExist(shopping);
-        int save;
-        if (isExist!=null ){
-            shopping.setCount(shopping.getCount()+isExist.getCount());
-            save=shoppingDao.updateCount(shopping);
-        }else {
-            save = shoppingDao.save(shopping);
+        int count = shoppingDao.getCount(shopping);
+        int save=0;
+        if (count < 10) {
+            Shopping isExist = shoppingDao.isExist(shopping);
+            if (isExist != null) {
+                shopping.setCount(shopping.getCount() + isExist.getCount());
+                save = shoppingDao.updateCount(shopping);
+            } else {
+                save = shoppingDao.save(shopping);
+            }
         }
         return save;
     }
@@ -41,12 +45,12 @@ public class ShoppingService implements ShoppingServiceDao {
         String token = request.getHeader("token");
         Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
         String username = (String) stringObjectMap.get("username");
-        List<Shopping> list=shoppingDao.list(userDao.getUserid(username));
-        if (list!=null){
+        List<Shopping> list = shoppingDao.list(userDao.getUserid(username));
+        if (list != null) {
             for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getProduct().getProductImg()!=null) {
+                if (list.get(i).getProduct().getProductImg() != null) {
                     for (int j = 0; j < list.get(i).getProduct().getProductImg().size(); j++) {
-                        list.get(i).getProduct().getProductImg().get(j).setImgUrl("http://localhost/static/img/"+list.get(i).getProduct().getProductImg().get(j).getImgUrl());
+                        list.get(i).getProduct().getProductImg().get(j).setImgUrl("http://localhost/static/img/" + list.get(i).getProduct().getProductImg().get(j).getImgUrl());
                     }
                 }
             }
@@ -60,6 +64,6 @@ public class ShoppingService implements ShoppingServiceDao {
         Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
         String username = (String) stringObjectMap.get("username");
         int user_id = userDao.getUserid(username);
-        return shoppingDao.delete(user_id,product_id);
+        return shoppingDao.delete(user_id, product_id);
     }
 }

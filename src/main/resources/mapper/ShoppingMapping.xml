@@ -5,22 +5,34 @@
 <mapper namespace="com.easy.dao.ShoppingDao">
 
     <insert id="save">
-        insert into shopping(user_id, product_id, count) VALUES (#{user_id},#{product_id},#{count})
+        insert into shopping(user_id, product_id, count)
+        VALUES (#{user_id}, #{product_id}, #{count})
     </insert>
     <update id="updateCount">
-        update shopping set count=#{count} where user_id=#{user_id} and product_id=#{product_id}
+        update shopping
+        set count=#{count}
+        where user_id = #{user_id}
+          and product_id = #{product_id}
     </update>
 
     <delete id="delete">
-        delete from shopping where product_id=#{product_id} and user_id=#{user_id}
+        delete
+        from shopping
+        where product_id = #{product_id}
+          and user_id = #{user_id}
     </delete>
 
     <select id="isExist" resultType="com.easy.bean.Shopping">
-        select `count` from shopping where user_id=#{user_id} and product_id=#{product_id}
+        select `count`
+        from shopping
+        where user_id = #{user_id}
+          and product_id = #{product_id}
     </select>
 
     <select id="list" resultMap="getProduct">
-        select user_id, product_id, count from shopping where user_id=#{user_id}
+        select user_id, product_id, count
+        from shopping
+        where user_id = #{user_id}
     </select>
 
     <resultMap id="getProduct" type="com.easy.bean.Shopping">
@@ -29,7 +41,25 @@
     </resultMap>
 
     <select id="product" resultMap="com.easy.dao.ProductDao.img">
-        select product_id, name, price, old_price, info, count, type_id, state, isdel, createtime, creator, lastedittime from product
-        where product_id=#{product_id}
+        select product_id,
+               name,
+               price,
+               old_price,
+               info,
+               count,
+               type_id,
+               state,
+               isdel,
+               createtime,
+               creator,
+               lastedittime
+        from product
+        where product_id = #{product_id}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(product_id)
+        from shopping
+        where user_id = #{user_id}
     </select>
 </mapper>
