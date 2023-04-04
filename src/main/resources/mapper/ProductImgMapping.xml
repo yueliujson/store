@@ -13,17 +13,20 @@
             )
         </foreach>
     </insert>
+
     <delete id="delete">
         delete
         from productimg
         where id = #{id}
     </delete>
 
+<!--根据id查-->
     <select id="get" resultType="com.easy.bean.ProductImg">
         select id, product_id, imgurl, sort
         from productimg
         where id = #{id}
     </select>
+<!--   根据产品id查 -->
     <select id="list" resultType="com.easy.bean.ProductImg">
         select id, product_id, imgurl, sort
         from productimg

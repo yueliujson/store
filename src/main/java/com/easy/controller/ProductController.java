@@ -12,17 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * 商品controller
- */
+
+// 商品
+
 @RestController
 public class ProductController {
     @Autowired
     ProductServiceDao productServiceDao;
 
-    /**
-     * 查询商品,模糊查询
-     */
+//查询商品,模糊查询
     @GetMapping("/product")
     public ResultData list(Product product, PageInfo pageInfo) {
         List<Product> list = productServiceDao.list(product,pageInfo);
@@ -32,7 +30,7 @@ public class ProductController {
         rd.put("count",count);
         return rd;
     }
-
+//通过id查
     @GetMapping("/product/{id}")
     public ResultData get(@PathVariable int id) {
         Product product = productServiceDao.get(id);
@@ -40,7 +38,7 @@ public class ProductController {
         rd.put("data", product);
         return rd;
     }
-
+//获取父类id
     @GetMapping("/productParent/{id}")
     public ResultData getParent(@PathVariable int id,@RequestBody PageInfo pageInfo) {
         System.out.println(pageInfo);
@@ -52,9 +50,7 @@ public class ProductController {
         return rd;
     }
 
-    /**
-     * 添加商品
-     */
+//添加商品
     @PostMapping("product")
     public ResultData save(@RequestBody Product product, HttpServletRequest request) {
         int save = productServiceDao.save(product,request);
@@ -67,9 +63,8 @@ public class ProductController {
         return rd;
     }
 
-    /**
-     * 修改商品信息
-     */
+
+//修改商品信息
     @PutMapping("product")
     public ResultData edit(@RequestBody Product product) {
         int edit = productServiceDao.edit(product);
@@ -81,7 +76,7 @@ public class ProductController {
         }
         return rd;
     }
-
+//改产品状态
     @PutMapping("product/state")
     public ResultData editState(@RequestBody Product product) {
         int edit = productServiceDao.editState(product);
@@ -94,9 +89,8 @@ public class ProductController {
         return rd;
     }
 
-    /**
-     * 删除商品信息
-     */
+
+//删除商品信息
     @DeleteMapping("product/{id}")
     public ResultData delete(@PathVariable int id) {
         int delete = productServiceDao.delete(id);

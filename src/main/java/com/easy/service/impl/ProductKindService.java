@@ -25,7 +25,7 @@ public class ProductKindService implements ProductKindServiceDao {
     public ProductKind get(int id) {
         return productKindDao.get(id);
     }
-
+//分类查询
     @Override
     public List<ProductKind> list(ProductKind item,PageInfo pageInfo) {
         return productKindDao.list(item,pageInfo);
@@ -40,7 +40,7 @@ public class ProductKindService implements ProductKindServiceDao {
 
     @Override
     public int edit(ProductKind item) {
-        System.out.println(item);
+//        System.out.println(item);
         return productKindDao.edit(item);
     }
 
@@ -53,7 +53,7 @@ public class ProductKindService implements ProductKindServiceDao {
         item.setCreator(name);
         return productKindDao.save(item);
     }
-
+//获取子类id
     @Override
     public List<ProductKind> getChild(int id, PageInfo pageInfo) {
         return productKindDao.getChildList(id,pageInfo);

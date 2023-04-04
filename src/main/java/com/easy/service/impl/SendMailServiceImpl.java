@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
+//邮件
 @Service
 public class SendMailServiceImpl implements SendMailServiceDao {
     /**

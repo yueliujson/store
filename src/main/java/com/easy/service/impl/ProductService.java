@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 商品Service
- */
+//商品
 @Service
 public class ProductService implements ProductServiceDao {
 
@@ -24,17 +22,15 @@ public class ProductService implements ProductServiceDao {
     ProductDao productDao;
     @Autowired
     UserDao userDao;
-    /**
-     * 根据id获取商品
-     */
+
+//根据产品id获取商品
     @Override
     public Product get(int product_id) {
         return productDao.get(product_id);
     }
 
-    /**
-     * 模糊查询商品
-     */
+
+//模糊查询商品
     @Override
     public List<Product> list(Product item, PageInfo pageInfo) {
         List<Product> list = productDao.list(item,pageInfo);
@@ -70,23 +66,18 @@ public class ProductService implements ProductServiceDao {
         }
         return list;
     }
-
+//该状态
     @Override
     public int editState(Product product) {
         return productDao.editState(product);
     }
 
-    /**
-     * 是否删除
-     */
     @Override
     public int delete(int product_id) {
         return productDao.delete(product_id);
     }
 
-    /**
-     * 修改商品信息
-     */
+ //修改商品信息
     @Override
     public int edit(Product item) {
         if (item.getState() != 0) {
@@ -96,9 +87,8 @@ public class ProductService implements ProductServiceDao {
         return productDao.edit(item);
     }
 
-    /**
-     * 添加商品
-     */
+
+//添加商品
     @Override
     public int save(Product item, HttpServletRequest request) {
         String token = request.getHeader("token");

@@ -16,9 +16,7 @@ public class AddressController {
     @Autowired
     AddressServiceDao addressServiceDao;
 
-    /**
-     * 储存地址
-     */
+    //保存地址
     @PostMapping("/address")
     public ResultData save(@RequestBody Address address,HttpServletRequest request) {
         int save = addressServiceDao.save(address,request);
@@ -31,9 +29,7 @@ public class AddressController {
         return rd;
     }
 
-    /**
-     * 根据id获取地址
-     */
+    //根据id获取地址
     @GetMapping("/address/{id}")
     public ResultData get(@PathVariable int id) {
         Address address = addressServiceDao.get(id);
@@ -42,9 +38,7 @@ public class AddressController {
         return rd;
     }
 
-    /**
-     * 根据用户id获取地址
-     */
+    //根据用户id获取地址
     @GetMapping("/address")
     public ResultData list(HttpServletRequest request) {
         List<Address> list = addressServiceDao.list(request);
@@ -53,9 +47,7 @@ public class AddressController {
         return rd;
     }
 
-    /**
-     * 删除
-     */
+    //删除地址
     @DeleteMapping("/address/{id}")
     public ResultData delete(@PathVariable int id) {
         int delete = addressServiceDao.delete(id);
@@ -68,9 +60,7 @@ public class AddressController {
         return rd;
     }
 
-    /**
-     * 修改
-     */
+    //修改地址
     @PutMapping("/address")
     public ResultData edit(@RequestBody Address address,HttpServletRequest request) {
         int edit = addressServiceDao.edit(address,request);

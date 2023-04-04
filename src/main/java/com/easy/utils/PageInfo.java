@@ -1,5 +1,7 @@
 package com.easy.utils;
 
+//分页
+//limit page start
 public class PageInfo {
     private int page;
     private int limit;

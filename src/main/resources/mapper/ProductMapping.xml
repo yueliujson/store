@@ -33,7 +33,7 @@
         insert into product(name, price, old_price, info, count, type_id, createtime, creator, lastedittime)
         values (#{name}, #{price}, #{old_price}, #{info}, #{count}, #{type_id}, now(), #{creator}, now())
     </insert>
-
+<!--软删除-->
     <update id="delete">
         update product
         set isdel=1,
@@ -41,6 +41,7 @@
             state=0
         where product_id = #{product_id}
     </update>
+<!--更新状态-->
     <update id="editState">
         update product
         set state=#{state}
@@ -63,7 +64,7 @@
         from product
         where product_id = #{product_id}
     </select>
-
+<!--动态sql-->
     <select id="list" resultMap="img">
         select product_id,name,price,old_price,info,count,type_id,state,isdel,createtime,creator,lastedittime
         from product

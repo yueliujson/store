@@ -1,5 +1,7 @@
 package com.easy.utils;
 
+
+//雪花算法 用来随机生成不重复的订单号
 public class SnowFlakeUtils {
     /*
         起始时间时间戳：这个时间为第一次运行时的时间，这里设置为2021/11/23/19/17

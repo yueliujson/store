@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+//登录过滤器
 @WebFilter(urlPatterns = {"/user","/address","/orderForm","/shopping"})
 public class LoginFilter implements Filter {
     @Override

@@ -18,7 +18,7 @@ public class AddressService implements AddressServiceDao {
     AddressDao addressDao;
     @Autowired
     UserDao userDao;
-
+// 保存
     @Override
     public int save(Address address, HttpServletRequest request) {
         int user_id = getUser_id(request);

@@ -17,9 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 用户Controller
- */
+
+// 用户Controller
+
 @RestController
 public class UserController {
     @Autowired
@@ -31,7 +31,7 @@ public class UserController {
     public static ResultData exception() {
         return new ResultData(401, "fail");
     }
-
+//登录
     @PostMapping("/login")
     public ResultData login(@RequestBody User userLogin) {
         String username = userLogin.getUsername();
@@ -60,7 +60,7 @@ public class UserController {
 
     private Map<String,String> map=new HashMap<>();
     public static Map<String, Date> time=new HashMap<>();
-
+//发送验证码
     @GetMapping("/authCode/{email}")
     public ResultData code(@PathVariable String email){
         SendMailServiceDao sendMailServiceDao=new SendMailServiceImpl();
@@ -79,7 +79,7 @@ public class UserController {
         rd.put("authCode",authCode);
         return rd;
     }
-
+//退出登录
     @GetMapping("/exit")
     public ResultData exit(HttpServletRequest request) {
         ResultData rd;
@@ -87,7 +87,7 @@ public class UserController {
         rd = new ResultData(200, "success");
         return rd;
     }
-
+//模糊查询
     @GetMapping("user")
     public ResultData list(User user, PageInfo pageInfo) {
         List<User> list = userServiceDao.list(user, pageInfo);
@@ -97,7 +97,7 @@ public class UserController {
         rd.put("count", count);
         return rd;
     }
-
+//通过id查
     @GetMapping("user/{id}")
     public ResultData get(@PathVariable int id) {
         User user = userServiceDao.get(id);
@@ -105,7 +105,7 @@ public class UserController {
         resultData.put("data", user);
         return resultData;
     }
-
+//软删除
     @DeleteMapping("user/{id}")
     public ResultData delete(@PathVariable int id) {
         int delete = userServiceDao.delete(id);
@@ -117,7 +117,7 @@ public class UserController {
         }
         return rd;
     }
-
+//修改密码
     @PutMapping("user")
     public ResultData edit(@RequestBody User user, HttpServletRequest request) {
         int edit = userServiceDao.edit(user,request);
@@ -129,7 +129,7 @@ public class UserController {
         }
         return rd;
     }
-
+//修改用户信息
     @PutMapping("usermessage")
     public ResultData edit(@RequestBody User user) {
         int edit = userServiceDao.edit(user);
@@ -141,7 +141,7 @@ public class UserController {
         }
         return rd;
     }
-
+//注册
     @PostMapping("/register")
     public ResultData save(@RequestBody User user) {
         int register = userServiceDao.save(user);
@@ -154,7 +154,7 @@ public class UserController {
         rd.put("data", user);
         return rd;
     }
-
+//添加用户
     @PostMapping("/adduser")
     public ResultData adduser(@RequestBody User user) {
         int register = userServiceDao.adduser(user);
@@ -181,7 +181,7 @@ public class UserController {
         rd.put("data", user);
         return rd;
     }
-
+//判断是否登录
     @GetMapping("isLogin")
     public ResultData isLogin(HttpServletRequest request){
         String token = request.getHeader("token");

@@ -16,9 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 用户Service
- */
 @Service
 public class UserService implements UserServiceDao {
     @Autowired

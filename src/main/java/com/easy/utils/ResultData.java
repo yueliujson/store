@@ -5,15 +5,13 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 返回信息
- */
+//返回信息的集合
 public class ResultData {
-    /**Http状态码*/
+    //http的状态码
     private int code;
-    /**信息（是否成功）*/
+    //success fail
     private String message;
-    /**数据*/
+    //存数据的集合
     private Map data=new HashMap();
 
     public void put(String key,Object value){

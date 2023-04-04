@@ -15,7 +15,7 @@
     <insert id="saveUsers">
         insert into user(name, sex, phone, username, userpass, createtime)
         values
-        <!-- 循环conllection -->
+--                循环collection
         <foreach collection="user" separator="," close="" item="item">
             (#{item.name},#{item.sex},#{item.phone},#{item.username},#{item.userpass},now())
         </foreach>

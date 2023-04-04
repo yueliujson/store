@@ -6,25 +6,24 @@ import lombok.Data;
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * 用户信息
- */
+
+//  用户信息
 public class User {
-    /**主键*/
+//    主键
     private Integer user_id;
-    /**姓名*/
+//    姓名
     private String name;
-    /**性别*/
+//    性别
     private Integer sex;
-    /**电话*/
+//    电话
     private String phone;
-    /**邮箱*/
+//    邮箱
     private String email;
-    /**用户名*/
+//    用户名
     private String username;
-    /**密码*/
+//    密码
     private String userpass;
-    /**确认密码*/
+//    确认密码
     private String newPass;
 
     public String getNewPass() {
@@ -50,13 +49,13 @@ public class User {
         this.lastLoginTime = lastLoginTime;
     }
 
-    /**状态*/
+//    状态
     private Byte state;
-    /**是否删除*/
+//是否删除
     private Byte isDel;
-    /**创建时间*/
+//    创建时间
     private Timestamp createTime;
-    /**最后登录时间*/
+//   最后登录时间
     private Timestamp lastLoginTime;
 
 

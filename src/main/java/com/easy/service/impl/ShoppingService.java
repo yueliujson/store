@@ -57,7 +57,7 @@ public class ShoppingService implements ShoppingServiceDao {
         }
         return list;
     }
-
+//软删除
     @Override
     public int delete(int product_id, HttpServletRequest request) {
         String token = request.getHeader("token");

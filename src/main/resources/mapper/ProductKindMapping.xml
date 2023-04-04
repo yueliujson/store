@@ -26,6 +26,7 @@
         lastedittime=now()
         where id = #{id}
     </update>
+<!--软删除-->
     <update id="delete">
         update productkind
         set isdel=1,
@@ -36,6 +37,7 @@
         update product set isdel=1 where type_id=#{id}
     </update>
 
+<!--二级分类 开始-->
     <resultMap id="getChild" type="com.easy.bean.ProductKind">
         <result column="id" property="id"/>
         <result column="isDel" property="isDel"/>
@@ -71,7 +73,7 @@
           and isdel = #{isDel}
         order by state desc
     </select>
-
+<!--查出所有的一级分类-->
     <select id="list" resultMap="getChild">
         select
         id,

@@ -8,7 +8,7 @@
         insert into address(user_id, province, city, area, address, phone, receiver, state, createtime, lastedittime)
         values (#{user_id}, #{province}, #{city}, #{area}, #{address}, #{phone}, #{receiver}, #{state}, now(), now())
     </insert>
-
+<!--软删除-->
     <update id="delete">
         update address
         set isdel=1
@@ -40,6 +40,7 @@
         where id = #{id}
     </update>
 
+<!--设置默认地址-->
     <update id="setDefaultNo">
         update address
         set state=0
@@ -63,6 +64,7 @@
         where id = #{id}
 
     </select>
+<!--展示出本人的地址-->
     <select id="list" resultType="com.easy.bean.Address">
         select id,
                user_id,

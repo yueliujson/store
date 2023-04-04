@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderFormController {
     @Autowired
     OrderFormServiceDao orderFormServiceDao;
-
+//保存订单
     @PostMapping("/orderForm")
     public ResultData save(@RequestBody OrderForm orderForm) {
         int save = orderFormServiceDao.save(orderForm);
@@ -29,7 +29,7 @@ public class OrderFormController {
         }
         return rd;
     }
-
+//根据id查订单
     @GetMapping("/orderForm/{id}")
     public ResultData get(@PathVariable int id) {
         OrderForm orderForm = orderFormServiceDao.get(id);
@@ -37,7 +37,7 @@ public class OrderFormController {
         rd.put("data", orderForm);
         return rd;
     }
-
+//模糊查询订单
     @GetMapping("/orderForm")
     public ResultData list(OrderForm orderForm, PageInfo pageInfo) {
         List<OrderForm> list ;
@@ -58,7 +58,7 @@ public class OrderFormController {
         return rd;
     }
 
-
+//编辑订单信息
     @PutMapping("/orderForm")
     public ResultData edit(@RequestBody OrderForm orderForm) {
         int edit = orderFormServiceDao.edit(orderForm);
@@ -70,7 +70,7 @@ public class OrderFormController {
         }
         return rd;
     }
-
+//根据id删除订单
     @DeleteMapping("/orderForm/{id}")
     public ResultData delete(@PathVariable int id) {
         int delete = orderFormServiceDao.delete(id);

@@ -25,6 +25,7 @@ public class OrderFormService implements OrderFormServiceDao {
     UserDao userDao;
 
     @Override
+//事务注解 关联表 如果出现异常 直接回滚
     @Transactional
     public int save(OrderForm orderForm) {
         orderForm.setOrder_id("c" + snowFlakeUtils.nextId());

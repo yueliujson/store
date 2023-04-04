@@ -7,41 +7,40 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * 订单信息
- */
+// 订单信息
+
 public class OrderForm {
-    /**主键*/
+//    主键
     private Integer id;
-    /**订单号*/
+//    订单号
     private String order_id;
-    /**用户id*/
+//    用户id
     private Integer user_id;
-    /**姓名*/
+//    姓名
     private String name;
-    /**支付金额*/
+//    支付金额
     private BigDecimal money;
-    /**地址*/
+//    地址
     private String address;
-    /**电话*/
+//    电话
     private String phone;
-    /**收货人*/
+//    收货人
     private String receiver;
-    /**状态*/
+//    状态
     private Byte state;
-    /**创建时间*/
+//    创建时间
     private Timestamp createTime;
-    /**支付时间*/
+//    支付时间
     private Timestamp paymentTime;
-    /**发货时间*/
+//    发货时间
     private Timestamp sendTime;
-    /**收货时间*/
+//    收货时间
     private Timestamp receiveTime;
-    /**完成时间*/
+//    完成时间
     private Timestamp finishTime;
-    /**是否删除*/
+//    是否删除
     private Byte isDel;
-    /**详情*/
+//    详情
     private List<OrderFormDir> orderFormDirs;
 
 

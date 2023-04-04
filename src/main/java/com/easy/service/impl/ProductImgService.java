@@ -23,27 +23,19 @@ public class ProductImgService implements ProductImgServiceDao {
     @Override
     public ProductImg get(int id) {
         ProductImg productImg = productImgDao.get(id);
-//        if (productImg != null) {
-//            readImg(productImg);
-//        }
         return productImg;
     }
 
     @Override
     public List<ProductImg> list(ProductImg item) {
         List<ProductImg> list = productImgDao.list(item);
-//        if (list != null) {
-//            for (ProductImg productImg : list) {
-//                readImg(productImg);
-//            }
-//        }
         return null;
     }
 
 
-    /**
-     * 读取图片地址,将图片读取,并写入字符串
-     */
+
+//      读取图片地址,将图片读取,并写入字符串
+
     private void readImg(ProductImg productImg) {
         FileInputStream fis = null;
         BufferedInputStream bis = null;
@@ -97,7 +89,7 @@ public class ProductImgService implements ProductImgServiceDao {
     public int edit(ProductImg item) {
         return 0;
     }
-
+//保存图片
     @Override
     public int save(ProductImg[] item) {
         if (item != null) {

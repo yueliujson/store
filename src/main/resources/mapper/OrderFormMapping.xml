@@ -8,11 +8,13 @@
         insert into orderform(order_id, user_id, money, address, phone, receiver, createtime)
         values (#{order_id}, #{user_id}, #{money}, #{address}, #{phone}, #{receiver}, now())
     </insert>
+
     <insert id="saveOrderFormDir">
         insert into orderformdir(order_id, product_id, count, price)
         values (#{order_id}, #{product_id}, #{count}, #{price})
     </insert>
 
+<!--状态0未支付 1支付 2发货 3收到 4结束-->
     <update id="edit">
         update orderform
         set state=#{state}
@@ -30,13 +32,13 @@
         </if>
         where id = #{id}
     </update>
-
+<!--软删除-->
     <update id="delete">
         update orderform
         set isdel=1
         where id = #{id}
     </update>
-
+<!--连接查询-->
     <select id="get" resultType="com.easy.bean.OrderForm">
         select o.id,
                u.name,

@@ -14,10 +14,10 @@ import java.util.List;
 public class ShoppingController {
     @Autowired
     ShoppingServiceDao shoppingServiceDao;
-
+//保存/增加
     @PostMapping("/shopping")
     public ResultData save(@RequestBody Shopping shopping, HttpServletRequest request){
-        System.out.println(shopping);
+//        System.out.println(shopping);
         int save = shoppingServiceDao.save(shopping,request);
         ResultData rd;
         if (save > 0) {
@@ -27,7 +27,7 @@ public class ShoppingController {
         }
         return rd;
     }
-
+//模糊查询
     @GetMapping("/shopping")
     public ResultData list( HttpServletRequest request){
         List<Shopping> list = shoppingServiceDao.list(request);
@@ -35,7 +35,7 @@ public class ShoppingController {
         rd.put("data", list);
         return rd;
     }
-
+//软删除
     @DeleteMapping("/shopping/{id}")
     public ResultData delete(@PathVariable int id,HttpServletRequest request){
         int delete=shoppingServiceDao.delete(id,request);

@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductKindController {
     @Autowired
     ProductKindServiceDao productKindServiceDao;
-
+//查
     @GetMapping("/productKind/{id}")
     public ResultData get(@PathVariable int id) {
         ProductKind productKind = productKindServiceDao.get(id);
@@ -27,7 +27,7 @@ public class ProductKindController {
         }
         return rd;
     }
-
+//模糊查询（集合）
     @GetMapping("/productKind")
     public ResultData list(ProductKind productKind,PageInfo pageInfo) {
         List<ProductKind> list = productKindServiceDao.list(productKind,pageInfo);
@@ -37,7 +37,7 @@ public class ProductKindController {
         rd.put("count",count);
         return rd;
     }
-
+//保存产品
     @PostMapping("productKind")
     public ResultData save(@RequestBody ProductKind productKind, HttpServletRequest request){
         int save = productKindServiceDao.save(productKind,request);
@@ -49,7 +49,7 @@ public class ProductKindController {
         }
         return rd;
     }
-
+//修改
     @PutMapping("productKind")
     public ResultData edit(@RequestBody ProductKind productKind){
         int edit = productKindServiceDao.edit(productKind);

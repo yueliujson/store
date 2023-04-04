@@ -36,7 +36,6 @@
     </select>
 
     <resultMap id="getProduct" type="com.easy.bean.Shopping">
-
         <association property="product" select="product" column="product_id"/>
     </resultMap>
 
@@ -56,7 +55,7 @@
         from product
         where product_id = #{product_id}
     </select>
-
+<!--计数-->
     <select id="getCount" resultType="java.lang.Integer">
         select count(product_id)
         from shopping

@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
-/**
- * SpringBoot启动器
- */
+//SpringBoot启动类
+
 @SpringBootApplication
 @ComponentScan("com")
 @ServletComponentScan({"com.easy.filter"})

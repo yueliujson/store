@@ -58,7 +58,7 @@ public class ProductImgController {
         }
         return rd;
     }
-
+//上传图片
     @PostMapping("/productImg/img")
     public ResultData save(@RequestParam("file") MultipartFile file, HttpServletRequest request){
         ResultData rd ;
