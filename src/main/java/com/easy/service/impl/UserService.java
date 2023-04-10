@@ -20,7 +20,7 @@ import java.util.Map;
 public class UserService implements UserServiceDao {
     @Autowired
     UserDao userDao;
-
+//注册
     @Override
     public int save(User user) {
         Date date = UserController.time.get(user.getEmail());
@@ -32,7 +32,7 @@ public class UserService implements UserServiceDao {
         }
         return 0;
     }
-
+//一次性注册多个
     @Override
     public int saveUsers(List<User> user) {
         int save = userDao.saveUsers(user);
@@ -43,12 +43,13 @@ public class UserService implements UserServiceDao {
     public int count(User user) {
         return userDao.count(user);
     }
-
+//退出
     @Override
     public boolean exit(HttpServletRequest request) {
         String token = request.getHeader("token");
         Map<String, Object> map = JWTUtil.decodeJWT(token);
         String username = (String) map.get("username");
+        //清除登录记录
         boolean remove = LoginFilter.list.remove(username);
         return remove;
     }
@@ -70,12 +71,17 @@ public class UserService implements UserServiceDao {
         }
         return edit;
     }
-
+//最后一次登录的时间
     @Override
     public void setLastLoginTime(Integer user_id) {
         userDao.setLastLoginTime(user_id);
     }
+//后台管理员添加用户
 
+    /**
+     * 默认密码 000000
+     *
+     */
     @Override
     public int adduser(User user) {
         String password = MD5.MD5Hex("000000");
@@ -91,7 +97,7 @@ public class UserService implements UserServiceDao {
     public User get(int id) {
         return userDao.get(id);
     }
-
+//模糊查询
     @Override
     public List<User> list(User item, PageInfo pageInfo) {
         return userDao.list(item, pageInfo);

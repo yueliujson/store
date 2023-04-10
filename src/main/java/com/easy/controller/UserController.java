@@ -59,6 +59,7 @@ public class UserController {
 
 
     private Map<String,String> map=new HashMap<>();
+    //定义一个储存时间的map
     public static Map<String, Date> time=new HashMap<>();
 //发送验证码
     @GetMapping("/authCode/{email}")

@@ -97,9 +97,11 @@
                 <bind name="likeName" value="'%'+name+'%'"/>
                 name like #{likeName}
             </if>
+            <trim prefix="and">
             <if test="isDel!=null">
                 isdel=#{isDel}
             </if>
+            </trim>
         </where>
     </select>
 

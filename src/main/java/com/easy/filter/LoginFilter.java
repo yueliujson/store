@@ -26,10 +26,13 @@ public class LoginFilter implements Filter {
     public static List<String> list = new ArrayList<>();
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        //大转小 获取方法
         HttpServletRequest req= (HttpServletRequest) request;
         HttpServletResponse resp= (HttpServletResponse) response;
+        //获取token
         String token = req.getHeader("token");
         if (token != null) {
+            //解析token
             Map<String, Object> stringObjectMap = JWTUtil.decodeJWT(token);
             String username = (String) stringObjectMap.get("username");
             boolean flag=true;

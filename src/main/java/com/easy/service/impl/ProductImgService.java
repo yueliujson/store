@@ -35,7 +35,6 @@ public class ProductImgService implements ProductImgServiceDao {
 
 
 //      读取图片地址,将图片读取,并写入字符串
-
     private void readImg(ProductImg productImg) {
         FileInputStream fis = null;
         BufferedInputStream bis = null;
